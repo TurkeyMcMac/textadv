@@ -1,0 +1,3 @@
+public enum DamageType {
+	BASIC, PHYSICAL, MENTAL, FIRE, FROST, ACID, POISON
+}
