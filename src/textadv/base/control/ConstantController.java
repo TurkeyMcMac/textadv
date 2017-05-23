@@ -6,7 +6,7 @@ import textadv.base.world.Being;
 
 public final class ConstantController extends AiController {
 	
-	BiConsumer<Being, ConstantController> order;
+	private BiConsumer<Being, ConstantController> order;
 	
 	public ConstantController(BiConsumer<Being, ConstantController> order) {
 		this.order = order;
