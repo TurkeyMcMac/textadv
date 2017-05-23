@@ -1,0 +1,48 @@
+`This file stores information on the Factions
+that Monsters are members of. Every Faction in
+this file is constructed at the start of the
+program.`
+
+`Default values | WARNING: changing these names can cause errors!`
+
+	$"default-name"="Faction"!
+	
+	$"default-info"="A faction."!
+	
+	`Default relationships`
+		
+		$"friendly"=#+5;!
+		
+		$"neutral" =#+0;!
+		
+		$"hostile" =#-5;!
+	
+	$"default-relationships"={}!
+	
+	$"default"={
+		"name"		   =^"default-name"!
+		"info"		   =^"default-info"!
+		"upon-meeting" =^"neutral"!
+		"relationships"=^"default-relationships"!
+	}!
+
+`Player`
+
+	{
+		"name"		   ="Player"
+		"info"		   ="The faction of the player."
+		"upon-meeting" =^"neutral"!
+		"relationships"={}
+	}
+
+`Monsters`
+
+	{
+		"name"		   ="Goblins"
+		"info"		   ="A group of nasty goblins."
+		"upon-meeting" =^"hostile"!
+		"relationships"={
+			"Player"=#-6;
+		}
+	}
+
