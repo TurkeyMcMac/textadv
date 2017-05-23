@@ -15,15 +15,14 @@ import textadv.base.outfits.WeaponWielder;
 
 public class Stick extends Pile implements Weapon {
 	
-	int weight;
+	int weight = 2;
 	WeaponWielder user;
 	List<DamageEffect> attacks = new ArrayList<DamageEffect>(Arrays.asList(
 		new ShortAttack("Hit", "A firm hit", 5, 5, DamageType.PHYSICAL)
 	));
 	
-	public Stick(int weight, Tile tile) {
+	public Stick(Tile tile) {
 		super("Stick", "A hard stick.", '|', tile);
-		this.weight = weight;
 	}
 	
 	@Override

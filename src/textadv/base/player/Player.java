@@ -13,12 +13,13 @@ import textadv.base.outfits.*;
 import textadv.base.resources.Resources;
 import textadv.base.world.*;
 
-public final class Player extends Monster implements WeaponWielder, Solid {
+public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid {
 	
-	List<Item> inventory = new ArrayList<Item>();
+	private List<Item> inventory = new ArrayList<Item>();
 	int nowWeight = 0;
 	int maxWeight = 10;
-	List<Tool<?>> wielded = new ArrayList<Tool<?>>();
+	private List<Tool<?>> wielded = new ArrayList<>();
+	private Map<Armor, RelDir> armors = new HashMap<>();
 	int nowWield = 0;
 	int maxWield = 2;
 	
@@ -93,7 +94,10 @@ public final class Player extends Monster implements WeaponWielder, Solid {
 	public boolean dropOff(Item item) {
 		if (inventory.remove(item)) {
 			if (item instanceof Tool<?>) {
-				((Tool<?>) item).unwield();
+				unwield((Tool<?>) item);
+			}
+			if (item instanceof Armor) {
+				unwear((Armor) item);
 			}
 			((Pile)item).drop(tile);
 			nowWeight -= item.getWeight();
@@ -140,12 +144,32 @@ public final class Player extends Monster implements WeaponWielder, Solid {
 	@Override
 	public boolean unwield(Tool<?> tool) {
 		if (wielded.remove(tool)) {
-			
 			if (tool instanceof Weapon) {
-				
 				((Weapon) tool).unwield();
 			}
 			--nowWield;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean wear(Armor armor, RelDir direction) {
+		if (inventory.contains(armor)) {
+			armor.wear(this);
+			armors.put(armor, direction);
+			shields.put(direction, shields.get(direction) + armor.getArmor());
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean unwear(Armor armor) {
+		RelDir armorSide = armors.get(armor);
+		if (armors.remove(armor) != null) {
+			armor.unwear();
+			shields.put(armorSide, shields.get(armorSide) - armor.getArmor());
 			return true;
 		}
 		return false;

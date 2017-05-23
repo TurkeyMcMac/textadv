@@ -17,7 +17,7 @@ public class Monster extends Being implements Healthy, Hostile {
 	protected Map<String, DamageEffect> attacks;
 	
 	private Map<DamageType, Integer> resistance;
-	private Map<RelDir, Integer> shields;
+	protected Map<RelDir, Integer> shields;
 	private int nowHealth;
 	private int maxHealth;
 	private int dodge;
@@ -108,6 +108,10 @@ public class Monster extends Being implements Healthy, Hostile {
 		stringified += "\nResistance: ";
 		for (DamageType d : resistance.keySet()) {
 			stringified += "\n\t" + d.toString().toLowerCase() + ": " + resistance.get(d);
+		}
+		stringified += "\nShields: ";
+		for (RelDir d : shields.keySet()) {
+			stringified += "\n\t" + d.toString().toLowerCase() + ": " + shields.get(d);
 		}
 		return stringified;
 	}

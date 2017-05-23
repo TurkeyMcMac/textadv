@@ -1,6 +1,7 @@
 package textadv.main;
 
 import textadv.base.directions.CarDir;
+import textadv.base.directions.RelDir;
 import textadv.base.player.Player;
 import textadv.base.population.*;
 import textadv.base.world.*;
@@ -23,12 +24,15 @@ public final class Main {
 	
 	public static void main(String[] args) {
 		Player player = new Player(CarDir.NORTH, null);
-		Stick stick = new Stick(10, null);
+		Stick stick = new Stick(null);
+		Hat hat = new Hat(null);
 		Goblin gobbo = new Goblin(CarDir.NORTH, null);
 		//player.getController().takeOrder(args);
 		world.drop(player, 2, 4);
 		world.drop(stick, 2, 4);
+		world.drop(hat, 2, 4);
 		player.pickUp(stick);
+		player.pickUp(hat);
 		player.wield(stick);
 		world.drop(gobbo, 17, 9);
 		world.load(0, 0, 19, 9);
