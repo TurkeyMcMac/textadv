@@ -81,7 +81,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	
 	@Override
 	public boolean pickUp(Item item) {
-		if (nowWeight + item.getWeight() <= maxWeight && item.getTile() == tile) {
+		if (nowWeight + item.getWeight() <= maxWeight && ((Thing)item).getTile() == tile) {
 			((Pile)item).pickUp();
 			((Thing)item).setTile(null);
 			inventory.add(item);
@@ -158,7 +158,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		if (inventory.contains(armor)) {
 			armor.wear(this);
 			armors.put(armor, direction);
-			shields.put(direction, shields.get(direction) + armor.getArmor());
+			shields.replace(direction, shields.get(direction) + armor.getArmor());
 			return true;
 		}
 		return false;
@@ -169,7 +169,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		RelDir armorSide = armors.get(armor);
 		if (armors.remove(armor) != null) {
 			armor.unwear();
-			shields.put(armorSide, shields.get(armorSide) - armor.getArmor());
+			shields.replace(armorSide, shields.get(armorSide) - armor.getArmor());
 			return true;
 		}
 		return false;

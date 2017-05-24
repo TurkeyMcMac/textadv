@@ -4,6 +4,7 @@ import textadv.base.directions.CarDir;
 import textadv.base.outfits.Healthy;
 import textadv.base.outfits.Hostile;
 import textadv.base.world.Being;
+import textadv.base.world.Thing;
 
 public abstract class Attack extends DamageEffect {
 	
@@ -26,8 +27,8 @@ public abstract class Attack extends DamageEffect {
 	@Override
 	public final int apply(Healthy subject) {
 		//relative attack position
-		int relAtkX = user.getTile().getX() - ((Being)subject).getTile().getX(),
-			relAtkY = user.getTile().getY() - ((Being)subject).getTile().getY();
+		int relAtkX = ((Thing)user).getTile().getX() - ((Being)subject).getTile().getX(),
+			relAtkY = ((Thing)user).getTile().getY() - ((Being)subject).getTile().getY();
 		if (isInRange(relAtkX, relAtkY) && 
 			subject.getDodge().floatValue() * Math.random() < accuracy)
 		{

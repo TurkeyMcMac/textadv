@@ -12,6 +12,4 @@ public interface Item {
 	
 	public int getWeight();
 	
-	public Tile getTile();
-	
 }

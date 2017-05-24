@@ -14,6 +14,4 @@ public interface Hostile {
 		return subject.takeDamage(getAttack(atkUsed));
 	}
 	
-	public Tile getTile();
-	
 }
