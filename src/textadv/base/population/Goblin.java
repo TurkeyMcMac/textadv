@@ -10,15 +10,30 @@ import textadv.base.directions.CarDir;
 import textadv.base.directions.RelDir;
 import textadv.base.factions.Faction;
 import textadv.base.outfits.Solid;
+import textadv.base.outfits.Talker;
 import textadv.base.resources.Resources;
+import textadv.base.talks.EndTalk;
+import textadv.base.talks.Talk;
 import textadv.base.world.Monster;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
-public final class Goblin extends Monster implements Solid {
+public final class Goblin extends Monster implements Talker, Solid {
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("goblin-med", "things");
+	
+	private Talk nowTalk;
+	private boolean talking;
+	private Talk[] talks = new Talk[] {
+		new Talk("Hello", Talk.nexts(
+			"Hi", new EndTalk("", this),
+			"Hello", new Talk("Hey", Talk.nexts(
+				"Hi", new EndTalk("", this),
+				"Hey", new EndTalk("Foo", this)
+			))
+		))
+	};
 	
 	@SuppressWarnings("serial")
 	public Goblin(CarDir facing, Tile tile) {
@@ -50,6 +65,33 @@ public final class Goblin extends Monster implements Solid {
 				  put(RelDir.LEFT, 2);
 			  }},
 			  tile);
+	}
+
+	@Override
+	public String talk(int index) {
+		nowTalk = nowTalk.pick(index);
+		if (nowTalk != null) {
+			return nowTalk.toString();
+		}
+		return null;
+	}
+
+	@Override
+	public void endTalk() {
+		talking = false;
+		nowTalk = null;
+	}
+
+	@Override
+	public String startTalk(String talkName) {
+		talking = true;
+		return (nowTalk = talks[0]).toString();
+		
+	}
+	
+	@Override
+	public boolean isTalking() {
+		return talking;
 	}
 	
 }

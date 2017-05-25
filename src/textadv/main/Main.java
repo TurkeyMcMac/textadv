@@ -1,10 +1,10 @@
 package textadv.main;
 
 import textadv.base.directions.CarDir;
-import textadv.base.directions.RelDir;
 import textadv.base.player.Player;
 import textadv.base.population.*;
 import textadv.base.world.*;
+import textadv.base.talks.*;
 
 public final class Main {
 	
@@ -27,20 +27,10 @@ public final class Main {
 		Stick stick = new Stick(null);
 		Hat hat = new Hat(null);
 		Goblin gobbo = new Goblin(CarDir.NORTH, null);
-		//player.getController().takeOrder(args);
-		world.drop(player, 2, 4);
-		world.drop(stick, 2, 4);
-		world.drop(hat, 2, 4);
-		player.pickUp(stick);
-		player.pickUp(hat);
-		player.wield(stick);
-		world.drop(gobbo, 17, 9);
-		world.load(0, 0, 19, 9);
-		while (gobbo.isAlive()) {
-			player.attack(gobbo, "Hit");
-			frame();
-			System.out.println(gobbo);
-		}
+		System.out.println(player.listenTo(gobbo, null));
+		System.out.println(player.respond(1));
+		player.stopListening();
+		System.out.println(gobbo.isTalking());
 	}
 
 }

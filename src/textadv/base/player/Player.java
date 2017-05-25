@@ -16,12 +16,13 @@ import textadv.base.world.*;
 public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid {
 	
 	private List<Item> inventory = new ArrayList<Item>();
-	int nowWeight = 0;
-	int maxWeight = 10;
+	private int nowWeight = 0;
+	private int maxWeight = 10;
 	private List<Tool<?>> wielded = new ArrayList<>();
 	private Map<Armor, RelDir> armors = new HashMap<>();
-	int nowWield = 0;
-	int maxWield = 2;
+	private int nowWield = 0;
+	private int maxWield = 2;
+	private Talker listenedTo;
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("player", "things");
@@ -174,4 +175,25 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		}
 		return false;
 	}
+	
+	public String listenTo(Talker talker, String talkName) {
+		if (listenedTo != null) {
+			listenedTo.endTalk();
+		}
+		listenedTo = talker;
+		return talker.startTalk(talkName);
+	}
+	
+	public String respond(int index) {
+		if (listenedTo != null) {
+			return listenedTo.talk(index);
+		}
+		return null;
+	}
+	
+	public void stopListening() {
+		listenedTo.endTalk();
+		listenedTo = null;
+	}
+	
 }
