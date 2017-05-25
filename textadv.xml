@@ -11,8 +11,8 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.buildfile}/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <!-- <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/> -->
+            <!-- <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/> -->
         </jar>
     </target>
 </project>
