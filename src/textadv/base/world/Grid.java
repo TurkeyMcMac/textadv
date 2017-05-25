@@ -138,6 +138,13 @@ public class Grid {
 		return map;
 	}
 	
+	public List<Tile> loadPlayer(int xReach, int yReach) {
+		Tile playerTile = player.getTile();
+		int playerX = playerTile.getX();
+		int playerY = playerTile.getY();
+		return load(playerX - xReach, playerY - yReach, playerX + xReach, playerY + yReach);
+	}
+	
 	public List<Tile> update() {
 		tick = (tick + 1) % Integer.MAX_VALUE;
 		applyToLoaded((t) -> t.resetUpdater());
@@ -174,17 +181,5 @@ public class Grid {
 	public Ground shuffle(Ground ground, int targX, int targY) {
 		return ground.warp(getTile(targX, targY));
 	}
-	
-	/**todo:
-	 * items
-	 * armor
-	 * weapons
-	 * dialogue
-	 * quests
-	 * AI
-	 * privatize
-	 * UI
-	 * populate
-	 */
 
 }

@@ -20,13 +20,13 @@ public final class Main {
 	
 	public static void main(String[] args) {
 		Player player = new Player(CarDir.NORTH, null);
+		world.drop(player, 3, 3);
+		world.setPlayer(player);
 		Stick stick = new Stick(null);
 		Hat hat = new Hat(null);
 		Goblin gobbo = new Goblin(CarDir.NORTH, null);
-		System.out.println(player.listenTo(gobbo, null));
-		System.out.println(player.respond(1));
-		player.stopListening();
-		System.out.println(gobbo.isTalking());
+		world.loadPlayer(4, 4);
+		System.out.println(world.draw());
 	}
 
 }
