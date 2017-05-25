@@ -46,7 +46,7 @@ public final class Goblin extends Monster implements Talker, Solid {
 			  facing,
 			  new ConstantController((b, c) -> {
 				  Tile goblinTile = b.getTile();
-				  Tile playerTile = goblinTile.getGrid().getPlayerTile();
+				  Tile playerTile = goblinTile.getGrid().getPlayer().getTile();
 				  goblinTile.getGrid().drop(new Pile("Poop", "Smelly.", '@', null), goblinTile.getX(), goblinTile.getY());
 				  int relativeX = playerTile.getX() - goblinTile.getX(),
 				  	  relativeY = playerTile.getY() - goblinTile.getY();

@@ -12,10 +12,6 @@ public final class Main {
 	
 	static int frame = 0;
 	
-	static {
-		world.setPlayerTile(world.getTile(0, 0));
-	}
-	
 	static void frame() {
 		world.update();
 		frame++;

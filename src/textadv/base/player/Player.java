@@ -72,7 +72,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	@Override
 	protected void doUpdate() {
 		controller.control();
-		tile.getGrid().setPlayerTile(tile);
+		tile.getGrid().setPlayer(this);
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import textadv.base.outfits.Solid;
+import textadv.base.player.Player;
 
 public class Grid {
 
@@ -16,7 +17,7 @@ public class Grid {
 	private List<Tile> loaded = new ArrayList<Tile>();
 	private String map;
 	private int refLine;
-	private Tile playerTile;
+	private Player player;
 	
 	public Grid(int width, int height, Tile filler) {
 		WIDTH = width;
@@ -29,12 +30,12 @@ public class Grid {
 		}
 	}
 	
-	public void setPlayerTile(Tile tile) {
-		playerTile = tile;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
-	public Tile getPlayerTile() {
-		return playerTile;
+	public Player getPlayer() {
+		return player;
 	}
 	
 	public Tile getTile(int x, int y) {
