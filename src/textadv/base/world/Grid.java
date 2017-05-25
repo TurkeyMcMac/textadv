@@ -74,7 +74,7 @@ public class Grid {
 		return tile.place(ground);
 	}
 	
-	public List<Tile> load(int x1, int y1, int x2, int y2) {
+	public void load(int x1, int y1, int x2, int y2) {
 		if (x1 < 0) {
 			x1 = 0;
 		}
@@ -93,19 +93,17 @@ public class Grid {
 				loaded.add(tiles[j][i]);
 			}
 		}
-		return loaded;
 	}
 	
-	private List<Tile> applyToLoaded(Consumer<Tile> f) {
+	private void applyToLoaded(Consumer<Tile> f) {
 		for (Tile t : loaded) {
 			f.accept(t);
 		}
-		return loaded;
 	}
 	
-	private List<Tile> applyToLoaded(int x1, int y1, int x2, int y2, Consumer<Tile> f) {
+	private void applyToLoaded(int x1, int y1, int x2, int y2, Consumer<Tile> f) {
 		load(x1, y1, x2, y2);
-		return applyToLoaded(f);
+		applyToLoaded(f);
 	}
 	
 	private final Consumer<Tile> DRAW = (t) -> {
@@ -138,17 +136,17 @@ public class Grid {
 		return map;
 	}
 	
-	public List<Tile> loadPlayer(int xReach, int yReach) {
+	public void loadPlayer(int xReach, int yReach) {
 		Tile playerTile = player.getTile();
 		int playerX = playerTile.getX();
 		int playerY = playerTile.getY();
-		return load(playerX - xReach, playerY - yReach, playerX + xReach, playerY + yReach);
+		load(playerX - xReach, playerY - yReach, playerX + xReach, playerY + yReach);
 	}
 	
-	public List<Tile> update() {
+	public void update() {
 		tick = (tick + 1) % Integer.MAX_VALUE;
 		applyToLoaded((t) -> t.resetUpdater());
-		return applyToLoaded((t) -> t.update());
+		applyToLoaded((t) -> t.update());
 	}
 	
 	public void drop(Pile pile, int x, int y) {
