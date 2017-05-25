@@ -2,8 +2,6 @@ package textadv.base.outfits;
 
 import textadv.base.damage.DamageEffect;
 import textadv.base.factions.Faction;
-import textadv.base.world.Tile;;
-
 public interface Hostile {
 	
 	public Faction getFaction();
