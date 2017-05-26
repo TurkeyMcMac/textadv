@@ -131,4 +131,14 @@ public final class Tile {
 		return isSolid;
 	}
 	
+	public String toString() {
+		String stringified = "(" + x + ", " + y + ")";
+		stringified += "\nGround:\n\t" + ground.describe();
+		stringified += "\nPiles:";
+		for (Pile p : piles) {
+			stringified += "\n\t" + p.describe();
+		}
+		return stringified;
+	}
+	
 }

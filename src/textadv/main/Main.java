@@ -2,6 +2,7 @@ package textadv.main;
 
 import textadv.base.directions.CarDir;
 import textadv.base.player.Player;
+import textadv.base.population.Wall;
 import textadv.base.world.*;
 
 public final class Main {
@@ -18,7 +19,9 @@ public final class Main {
 	
 	public static void main(String[] args) {
 		Player player = new Player(CarDir.NORTH, null);
+		Wall wall = new Wall("Wall", "A solid wall.", '#', null);
 		world.drop(player, 3, 3);
+		world.place(wall, 3, 2);
 		world.setPlayer(player);
 		player.getController().takeOrder(new String[] {"look", "north"});
 		world.loadPlayer(3, 3);

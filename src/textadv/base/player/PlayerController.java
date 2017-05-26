@@ -44,7 +44,7 @@ public final class PlayerController extends Controller<PlayerController> {
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
-				(b, c) -> b.log(b.look(d).getGround());
+				(b, c) -> b.log(b.look(d));
 		});
 	}};
 	
