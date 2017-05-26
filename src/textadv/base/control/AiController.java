@@ -12,7 +12,7 @@ public abstract class AiController extends Controller<AiController> {
 	public void control() {
 		BiConsumer<Being, AiController> order = getOrder();
 		if (order != null) {
-			giveOrder(order);
+			doOrder(order);
 		}
 	}
 

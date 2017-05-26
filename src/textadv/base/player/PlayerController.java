@@ -51,14 +51,27 @@ public final class PlayerController extends Controller<PlayerController> {
 				(b, c) -> b.log(b.look(d));
 		});
 		put(new Pair<>("exam", 1), (String[] args) -> {
-			
 			return (b, c) -> {
 				for (Item i : b.getInventory()) {
-					if (i.getName() == args[1]) {
+					if (i.getName().equals(args[1])) {
 						b.log(i.describe());
+						return;
 					}
 				}
+				b.log("No such item.");
 			};
+		});
+		put(new Pair<>("inv", 0), (String[] args) -> {
+			return (b, c) -> {
+				String stringified = "Inventory:";
+				for (Item i : b.getInventory()) {
+					stringified += "\n\t" + i.getName();
+				}
+				b.log(stringified);
+			};
+		});
+		put(new Pair<>("help", 0), (String[] args) -> {
+			return (b, c) -> b.log("This might help.");
 		});
 	}};
 	
@@ -76,16 +89,20 @@ public final class PlayerController extends Controller<PlayerController> {
 	
 	public void takeOrder(String[] givenOrder) {
 		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(new Pair<>(givenOrder[0], givenOrder.length - 1));
-		if (interpretation != null) {
+		if (interpretation == null) {
+			order = (b, c) -> b.log("Unrecognized order");
+		} else {
 			order = interpretation.apply(givenOrder);
 		}
 	}
 	
+	public void setOrder(BiConsumer<Player, PlayerController> order) {
+		this.order = order;
+	}
+	
 	@Override
 	public void control() {
-		if (order != null) {
-			order.accept((Player) controlled, this);
-		}
+		doOrder(order);
 	}
 	
 }

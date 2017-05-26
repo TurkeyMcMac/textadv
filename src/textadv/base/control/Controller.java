@@ -26,11 +26,11 @@ public abstract class Controller<T extends Controller<T>> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected boolean giveOrder(BiConsumer<Being, T> order) {
-		if (suppressed) {
+	protected <U extends Being> boolean doOrder(BiConsumer<U, T> order) {
+		if (suppressed || order == null) {
 			return false;
 		} else {
-			order.accept(controlled, (T)this);
+			order.accept((U)controlled, (T)this);
 			return true;
 		}
 	}
