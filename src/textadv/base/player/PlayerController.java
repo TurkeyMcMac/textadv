@@ -1,6 +1,9 @@
 package textadv.base.player;
 
 import java.util.function.Function;
+
+import jwmh.misc.Pair;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -8,6 +11,7 @@ import java.util.function.BiConsumer;
 import textadv.base.control.Controller;
 import textadv.base.directions.*;
 import textadv.base.world.Being;
+import textadv.base.outfits.Item;
 
 public final class PlayerController extends Controller<PlayerController> {
 	
@@ -33,18 +37,28 @@ public final class PlayerController extends Controller<PlayerController> {
 	}
 	
 	@SuppressWarnings("serial")
-	private static final Map<String, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<String, Function<String[], BiConsumer<Player, PlayerController>>>() {{
-		put("step", (String[] args) -> {
+	private static final Map<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>>() {{
+		put(new Pair<>("step", 1), (String[] args) -> {
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
 				(b, c) -> b.step(d);
 		});
-		put("look", (String[] args) -> {
+		put(new Pair<>("look", 1), (String[] args) -> {
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
 				(b, c) -> b.log(b.look(d));
+		});
+		put(new Pair<>("examine", 1), (String[] args) -> {
+			
+			return (b, c) -> {
+				for (Item i : b.getInventory()) {
+					if (i.getName() == args[1]) {
+						b.log(i.describe());
+					}
+				}
+			};
 		});
 	}};
 	
@@ -61,7 +75,7 @@ public final class PlayerController extends Controller<PlayerController> {
 	}
 	
 	public void takeOrder(String[] givenOrder) {
-		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(givenOrder[0]);
+		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(new Pair<>(givenOrder[0], givenOrder.length - 1));
 		if (interpretation != null) {
 			order = interpretation.apply(givenOrder);
 		}
