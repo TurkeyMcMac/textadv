@@ -1,6 +1,6 @@
 package textadv.base.outfits;
 
-public interface PickerUpper {
+public interface PickerUpper extends Describable {
 	
 	public boolean pickUp(Item item);
 	

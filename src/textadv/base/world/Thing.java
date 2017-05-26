@@ -1,6 +1,6 @@
 package textadv.base.world;
 
-import textadv.base.descriptions.*;
+import textadv.base.outfits.Describable;
 
 public abstract class Thing implements Describable {
 	

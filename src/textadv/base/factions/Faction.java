@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
-import textadv.base.descriptions.*;
+import textadv.base.outfits.Describable;
 import textadv.base.resources.Resources;
 
 public class Faction implements Describable {

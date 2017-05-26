@@ -1,6 +1,6 @@
 package textadv.base.damage;
 
-import textadv.base.descriptions.Describable;
+import textadv.base.outfits.Describable;
 import textadv.base.outfits.Healthy;
 
 public class DamageEffect implements Describable {

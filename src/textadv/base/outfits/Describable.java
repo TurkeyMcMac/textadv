@@ -1,4 +1,4 @@
-package textadv.base.descriptions;
+package textadv.base.outfits;
 
 public interface Describable {
 	

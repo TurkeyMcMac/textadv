@@ -133,10 +133,10 @@ public final class Tile {
 	
 	public String toString() {
 		String stringified = "(" + x + ", " + y + ")";
-		stringified += "\nGround:\n\t" + ground.describe();
+		stringified += "\nGround:\n\t" + ground.getName();
 		stringified += "\nPiles:";
 		for (Pile p : piles) {
-			stringified += "\n\t" + p.describe();
+			stringified += "\n\t" + p.getName();
 		}
 		return stringified;
 	}

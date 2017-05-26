@@ -1,6 +1,6 @@
 package textadv.base.events;
 
-import textadv.base.descriptions.Describable;
+import textadv.base.outfits.Describable;
 
 interface Quest extends Describable {
 	

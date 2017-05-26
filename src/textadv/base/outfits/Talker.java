@@ -1,6 +1,6 @@
 package textadv.base.outfits;
 
-public interface Talker {
+public interface Talker extends Describable {
 	
 	public String talk(int index);
 	
