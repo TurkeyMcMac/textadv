@@ -1,12 +1,12 @@
-package textadv.base.control;
+package textadv.base.player;
 
 import java.util.function.Function;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import textadv.base.control.Controller;
 import textadv.base.directions.*;
-import textadv.base.player.Player;
 import textadv.base.world.Being;
 
 public final class PlayerController extends Controller<PlayerController> {

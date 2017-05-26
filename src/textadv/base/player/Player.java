@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import textadv.base.control.*;
 import textadv.base.damage.*;
 import textadv.base.directions.*;
 import textadv.base.factions.Faction;
