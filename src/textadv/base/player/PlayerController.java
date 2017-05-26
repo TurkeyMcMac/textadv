@@ -50,7 +50,7 @@ public final class PlayerController extends Controller<PlayerController> {
 				(b, c) -> {}:
 				(b, c) -> b.log(b.look(d));
 		});
-		put(new Pair<>("examine", 1), (String[] args) -> {
+		put(new Pair<>("exam", 1), (String[] args) -> {
 			
 			return (b, c) -> {
 				for (Item i : b.getInventory()) {
