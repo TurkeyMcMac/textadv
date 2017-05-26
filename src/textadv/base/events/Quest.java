@@ -2,68 +2,22 @@ package textadv.base.events;
 
 import textadv.base.descriptions.Describable;
 
-public class Quest implements Describable {
-	
-	private String name;
-	private String info;
-	private Event start;
-	private Event finish;
-	private Event failure;
-	private Status status;
-	
-	public Quest(String name, String info, Event start, Event finish, Event failure) {
-		this.name = name;
-		this.info = info;
-		this.start = start;
-		this.finish = finish;
-		this.failure = failure;
-		status = Status.NOT_ACTIVE;
-	}
+interface Quest extends Describable {
 	
 	public enum Status {
-		FINISHED, FAILED, ACTIVE, NOT_ACTIVE
+		FINISHED, FAILED, ACTIVE, INACTIVE
 	}
 	
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String getInfo() {
-		return info;
-	}
+	public boolean start();
 	
-	public void start() {
-		status = Status.ACTIVE;
-	}
+	public boolean end();
 	
-	public void reset() {
-		status = Status.NOT_ACTIVE;
-	}
+	public boolean fail();
 	
-	public Status getStatus() {
-		return status;
-	}
+	public void reset();
 	
-	public Status checkStatus() {
-		switch (status) {
-			case NOT_ACTIVE:
-				if (start.isMet()) {
-					status = Status.ACTIVE;
-				}
-				break;
-			case ACTIVE:
-				if (finish.isMet()) {
-					status = Status.FINISHED;
-				} else if (failure.isMet()) {
-					status = Status.FAILED;
-				}
-				break;
-			default:
-				break;
-		}
-		return status;
-	}
+	public void setStatus(Status status);
+	
+	public Status getStatus();
 	
 }
