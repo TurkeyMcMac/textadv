@@ -33,7 +33,7 @@ public abstract class Being extends Pile {
 	}
 	
 	public Tile look(int x, int y) {
-		return tile.getGrid().getTile(x, y);
+		return tile.getGrid().getTile(tile.getX() + x, tile.getY() + y);
 	}
 	
 	public Tile look(CarDir c) {
