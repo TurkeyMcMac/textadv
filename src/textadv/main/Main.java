@@ -2,9 +2,7 @@ package textadv.main;
 
 import textadv.base.directions.CarDir;
 import textadv.base.player.Player;
-import textadv.base.population.*;
 import textadv.base.world.*;
-import textadv.base.talks.*;
 
 public final class Main {
 	
@@ -22,11 +20,10 @@ public final class Main {
 		Player player = new Player(CarDir.NORTH, null);
 		world.drop(player, 3, 3);
 		world.setPlayer(player);
-		Stick stick = new Stick(null);
-		Hat hat = new Hat(null);
-		Goblin gobbo = new Goblin(CarDir.NORTH, null);
-		world.loadPlayer(4, 4);
-		System.out.println(world.draw());
+		player.getController().takeOrder(new String[] {"look", "north"});
+		world.loadPlayer(3, 3);
+		world.update();
+		System.out.println(world.window());
 	}
 
 }

@@ -129,6 +129,10 @@ public class Grid {
 		return map;
 	}
 	
+	public String window() {
+		return draw() + '\n' + player.getLog();
+	}
+	
 	public String draw(int x1, int y1, int x2, int y2) {
 		map = "";
 		refLine = loaded.get(0).getY();

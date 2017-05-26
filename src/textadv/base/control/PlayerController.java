@@ -13,31 +13,40 @@ public final class PlayerController extends Controller<PlayerController> {
 	
 	private BiConsumer<Player, PlayerController> order;
 	
+	private static CarDir parseCarDir(String order) {
+		switch (order) {
+		case "n":
+		case "north":
+			return CarDir.NORTH;
+		case "e":
+		case "east":
+			return CarDir.EAST;
+		case "s":
+		case "south":
+			return CarDir.SOUTH;
+		case "w":
+		case "west":
+			return CarDir.WEST;
+		default:
+			return null;
+		}
+	}
+	
 	@SuppressWarnings("serial")
 	private static final Map<String, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<String, Function<String[], BiConsumer<Player, PlayerController>>>() {{
 		put("step", (String[] args) -> {
-			CarDir d;
-			switch (args[1].toLowerCase()) {
-				case "n":
-				case "north":
-					d = CarDir.NORTH;
-					break;
-				case "e":
-				case "east":
-					d = CarDir.EAST;
-					break;
-				case "s":
-				case "south":
-					d = CarDir.SOUTH;
-					break;
-				case "w":
-				case "west":
-					d = CarDir.WEST;
-					break;
-				default:
-					return (b, c) -> {};
-			}
-			return (b, c) -> { b.step(d); };
+			CarDir d = parseCarDir(args[1].toLowerCase());
+			return d == null ?
+				(b, c) -> {}:
+				(b, c) -> { b.step(d); };
+		});
+		put("look", (String[] args) -> {
+			CarDir d = parseCarDir(args[1].toLowerCase());
+			return d == null ?
+				(b, c) -> {}:
+				(b, c) -> {
+					b.log(b.look(d).getGround());
+				};
 		});
 	}};
 	

@@ -23,6 +23,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	private int nowWield = 0;
 	private int maxWield = 2;
 	private Talker listenedTo;
+	private String log;
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("player", "things");
@@ -194,6 +195,14 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	public void stopListening() {
 		listenedTo.endTalk();
 		listenedTo = null;
+	}
+	
+	public String getLog() {
+		return log;
+	}
+	
+	public void log(Object log) {
+		this.log = log.toString();
 	}
 	
 }
