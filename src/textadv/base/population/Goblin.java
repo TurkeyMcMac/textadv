@@ -9,8 +9,7 @@ import textadv.base.damage.DamageType;
 import textadv.base.directions.CarDir;
 import textadv.base.directions.RelDir;
 import textadv.base.factions.Faction;
-import textadv.base.outfits.Solid;
-import textadv.base.outfits.Talker;
+import textadv.base.outfits.*;
 import textadv.base.resources.Resources;
 import textadv.base.talks.EndTalk;
 import textadv.base.talks.Talk;
@@ -18,7 +17,7 @@ import textadv.base.world.Monster;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
-public final class Goblin extends Monster implements Talker, Solid {
+public final class Goblin extends Monster implements Talker, Solid, Item {
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("goblin-med", "things");
@@ -92,6 +91,11 @@ public final class Goblin extends Monster implements Talker, Solid {
 	@Override
 	public boolean isTalking() {
 		return talking;
+	}
+
+	@Override
+	public int getWeight() {
+		return 1;
 	}
 	
 }

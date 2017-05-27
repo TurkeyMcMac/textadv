@@ -2,9 +2,7 @@ package textadv.main;
 
 import textadv.base.directions.CarDir;
 import textadv.base.player.Player;
-import textadv.base.population.Goblin;
-import textadv.base.population.Stick;
-import textadv.base.population.Wall;
+import textadv.base.population.*;
 import textadv.base.world.*;
 
 public final class Main {
@@ -25,6 +23,7 @@ public final class Main {
 		world.drop(player, 30, 30);
 		world.drop(new Stick(null), 31, 30);
 		world.drop(new Stick(null), 31, 30);
+		world.drop(new Block(null), 29, 28);
 		world.drop(new Goblin(CarDir.NORTH, null), 25, 23);
 		world.place(new Wall("Wall", "A solid wall.", '#', null), 30, 29);
 		world.setPlayer(player);
