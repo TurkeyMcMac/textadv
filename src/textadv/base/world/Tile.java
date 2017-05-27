@@ -2,6 +2,7 @@ package textadv.base.world;
 
 import java.util.List;
 
+import textadv.base.outfits.Describable;
 import textadv.base.outfits.Solid;
 
 import java.util.ArrayList;
@@ -134,10 +135,7 @@ public final class Tile {
 	public String toString() {
 		String stringified = "(" + x + ", " + y + ")";
 		stringified += "\nGround:\n\t" + ground.getName();
-		stringified += "\nPiles:";
-		for (Pile p : piles) {
-			stringified += "\n\t" + p.getName();
-		}
+		stringified += Describable.nameList("\nPiles:", piles);
 		return stringified;
 	}
 	

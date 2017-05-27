@@ -81,11 +81,7 @@ public final class PlayerController extends Controller<PlayerController> {
 		});
 		put(new Pair<>("inv", 0), (String[] args) -> {
 			return (b, c) -> {
-				String stringified = "Inventory:";
-				for (Item i : b.getInventory()) {
-					stringified += "\n\t" + i.getName();
-				}
-				b.log(stringified);
+				b.log(Describable.nameList("Inventory:", b.getInventory()));
 			};
 		});
 		put(new Pair<>("help", 0), (String[] args) -> {
