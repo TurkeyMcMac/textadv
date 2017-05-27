@@ -30,7 +30,7 @@ public final class Main {
 		world.setPlayer(player);
 		screen(new String[] {"help"});
 		while (true) { 
-			screen(System.console().readLine().split("\\s+"));
+			screen(System.console().readLine().trim().split("\\s+"));
 		}
 	}
 

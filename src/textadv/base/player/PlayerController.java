@@ -19,7 +19,7 @@ public final class PlayerController extends Controller<PlayerController> {
 	private BiConsumer<Player, PlayerController> order;
 	
 	private static CarDir parseCarDir(String order) {
-		switch (order) {
+		switch (order.toLowerCase()) {
 		case "n":
 		case "north":
 			return CarDir.NORTH;
