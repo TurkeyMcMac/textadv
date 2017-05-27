@@ -52,9 +52,29 @@ public final class PlayerController extends Controller<PlayerController> {
 	
 	private static final String NO_TOOL = "No such tool.";
 	
-	@SuppressWarnings("serial")
-	private static final Map<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>>() {{
-		put(new Pair<>("step", 1), (String[] args) -> {
+	
+	/*
+	 * Structure:
+	 *   Key:
+	 *     Name
+	 *     Argument number
+	 *   Value:
+	 *     Order
+	 *     Description:
+	 *       Argument info
+	 *       Explanation
+	 * */
+	private static final transient Map<
+		Pair<String, Integer>, 
+		Pair<
+			Function<
+				String[], 
+				BiConsumer<Player, PlayerController>>,
+			Pair<String[], String>>> ORDERS = new HashMap<>();
+	
+	static {
+		ORDERS.put(new Pair<>("step", 1), new Pair<>((String[] args) -> {
+			
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
@@ -64,30 +84,51 @@ public final class PlayerController extends Controller<PlayerController> {
 							"You step " + d.toString().toLowerCase() + '.' :
 							"You cannot step there.");
 				};
-		});
-		put(new Pair<>("look", 1), (String[] args) -> {
+				
+		}, new Pair<>(new String[] {"cardinal direction"}, "Step in a direction.")));
+		ORDERS.put(new Pair<>("look", 1), new Pair<>((String[] args) -> {
+			
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
 				(b, c) -> b.log(b.look(d));
-		});
-		put(new Pair<>("exam", 1), (String[] args) -> {
+				
+		}, new Pair<>(new String[] {"cardinal direction"}, "Look at a tile in one's vicinity.")));
+		ORDERS.put(new Pair<>("exam", 1), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Describable found = findByName(args[1], b.getInventory());
 				b.log(found == null ?
 						NO_ITEM :
 						found);
 			};
-		});
-		put(new Pair<>("inv", 0), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"item name"}, "Examine an item in one's inventory.")));
+		ORDERS.put(new Pair<>("inv", 0), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				b.log(Describable.nameList("Inventory:", b.getInventory()));
 			};
-		});
-		put(new Pair<>("help", 0), (String[] args) -> {
-			return (b, c) -> b.log("This might help.");
-		});
-		put(new Pair<>("pick", 1), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {}, "List the contents of one's inventory.")));
+		ORDERS.put(new Pair<>("help", 0), new Pair<>((String[] args) -> {
+			
+			return (b, c) -> {
+				String stringified = "List of orders:";
+				for (Pair<String, Integer> p : ORDERS.keySet()) {
+					stringified += "\n\t" + p.start + ' ';
+					Pair<String[], String> description = ORDERS.get(p).end;
+					for (String a : description.start) {
+						stringified += '<' + a + "> ";
+					}
+					stringified += ' ' + description.end + '\n';
+				}
+				b.log(stringified);
+			};
+			
+		}, new Pair<>(new String[] {}, "List all possible orders")));
+		ORDERS.put(new Pair<>("pick", 1), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Tile tile = b.getTile();
 				Grid grid = tile.getGrid();
@@ -110,8 +151,10 @@ public final class PlayerController extends Controller<PlayerController> {
 				}
 				b.log(NO_ITEM);
 			};
-		});
-		put(new Pair<>("drop", 1), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"item name"}, "Pick up an item from one's vicinity.")));
+		ORDERS.put(new Pair<>("drop", 1), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Item found = (Item)findByName(args[1], b.getInventory());
 				if (found != null) {
@@ -121,8 +164,10 @@ public final class PlayerController extends Controller<PlayerController> {
 					b.log(NO_ITEM);
 				}
 			};
-		});
-		put(new Pair<>("drop", 2), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"item name"}, "Drop an item from one's inventory.")));
+		ORDERS.put(new Pair<>("drop", 2), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				int times = 0;
 				try {
@@ -141,8 +186,10 @@ public final class PlayerController extends Controller<PlayerController> {
 				}
 				b.log("You drop " + number + " of " + args[1] + '.');
 			};
-		});
-		put(new Pair<>("wld", 1), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"item name", "number"}, "Drop a number of a certain type of item from one's inventory.")));
+		ORDERS.put(new Pair<>("wld", 1), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Describable found = findByName(args[1], b.getInventory());
 				if (found instanceof Tool<?>) {
@@ -153,8 +200,10 @@ public final class PlayerController extends Controller<PlayerController> {
 				}
 				b.log(NO_TOOL);
 			};
-		});
-		put(new Pair<>("unwld", 1), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"weapon name"}, "Wield a weapon from one's inventory.")));
+		ORDERS.put(new Pair<>("unwld", 1), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Describable found = findByName(args[1], b.getWielded());
 				if (found != null) {
@@ -164,8 +213,10 @@ public final class PlayerController extends Controller<PlayerController> {
 				}
 				b.log(NO_TOOL);
 			};
-		});
-		put(new Pair<>("atk", 2), (String[] args) -> {
+			
+		}, new Pair<>(new String[] {"weapon name"}, "Unwield a weapon from one's inventory.")));
+		ORDERS.put(new Pair<>("atk", 2), new Pair<>((String[] args) -> {
+			
 			return (b, c) -> {
 				Tile target = b.look(parseCarDir(args[1]));
 				for (Pile p : target.getPiles()) {
@@ -182,8 +233,9 @@ public final class PlayerController extends Controller<PlayerController> {
 				}
 				b.log("No such attackable being.");
 			};
-		});
-	}};
+			
+		}, new Pair<>(new String[] {"cardinal direction", "attack name"}, "Attack in some direction with a specified attack.")));
+	}
 	
 	public PlayerController() {}
 	
@@ -198,7 +250,7 @@ public final class PlayerController extends Controller<PlayerController> {
 	}
 	
 	public void takeOrder(String[] givenOrder) {
-		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(new Pair<>(givenOrder[0], givenOrder.length - 1));
+		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(new Pair<>(givenOrder[0], givenOrder.length - 1)).start;
 		if (interpretation == null) {
 			order = (b, c) -> b.log(NO_ORDER);
 		} else {
