@@ -11,11 +11,8 @@ import java.util.function.BiConsumer;
 
 import textadv.base.control.Controller;
 import textadv.base.directions.*;
-import textadv.base.world.Being;
-import textadv.base.world.Grid;
-import textadv.base.world.Tile;
-import textadv.base.outfits.Describable;
-import textadv.base.outfits.Item;
+import textadv.base.world.*;
+import textadv.base.outfits.*;
 
 public final class PlayerController extends Controller<PlayerController> {
 	
@@ -52,6 +49,8 @@ public final class PlayerController extends Controller<PlayerController> {
 	private static final String NO_ORDER = "Unknown order.";
 	
 	private static final String NO_ITEM = "No such item.";
+	
+	private static final String NO_TOOL = "No such tool.";
 	
 	@SuppressWarnings("serial")
 	private static final Map<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>>() {{
@@ -145,6 +144,47 @@ public final class PlayerController extends Controller<PlayerController> {
 					}
 				}
 				b.log("You drop " + number + " of " + args[1] + '.');
+			};
+		});
+		put(new Pair<>("wld", 1), (String[] args) -> {
+			return (b, c) -> {
+				Describable found = findByName(args[1], b.getInventory());
+				if (found instanceof Tool<?>) {
+					b.log(b.wield((Tool<?>)found) ?
+							"You wield " + args[1] + '.' :
+							NO_TOOL);
+					return;
+				}
+				b.log(NO_TOOL);
+			};
+		});
+		put(new Pair<>("unwld", 1), (String[] args) -> {
+			return (b, c) -> {
+				Describable found = findByName(args[1], b.getWielded());
+				if (found != null) {
+					b.unwield((Tool<?>)found);
+					b.log("You unwield " + args[1] + '.');
+					return;
+				}
+				b.log(NO_TOOL);
+			};
+		});
+		put(new Pair<>("atk", 2), (String[] args) -> {
+			return (b, c) -> {
+				Tile target = b.look(parseCarDir(args[1]));
+				for (Pile p : target.getPiles()) {
+					if (p instanceof Healthy) {
+						if (b.getAttack(args[2]) != null) {
+							b.attack((Healthy)p, args[2]);
+							b.log("You attack " + p.getName() + '.');
+							return;
+						} else {
+							b.log("No such attack.");
+							return;
+						}
+					}
+				}
+				b.log("No such attackable being.");
 			};
 		});
 	}};

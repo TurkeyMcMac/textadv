@@ -118,6 +118,10 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		return inventory;
 	}
 	
+	public List<Tool<?>> getWielded() {
+		return wielded;
+	}
+	
 	@Override
 	public DamageEffect getAttack(String name) {
 		return attacks.get(name);

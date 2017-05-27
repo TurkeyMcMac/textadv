@@ -41,8 +41,8 @@ public final class Goblin extends Monster implements Talker, Solid {
 			  (String)RESOURCES.get("info"),
 			  (Character)RESOURCES.get("icon"),
 			  Faction.get("Goblins"),
-			  20,
-			  10,
+			  5,
+			  5,
 			  facing,
 			  new ConstantController((b, c) -> {
 				  Tile goblinTile = b.getTile();
