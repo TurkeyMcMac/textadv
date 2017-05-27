@@ -5,12 +5,16 @@ import java.util.function.Function;
 import jwmh.misc.Pair;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 import textadv.base.control.Controller;
 import textadv.base.directions.*;
 import textadv.base.world.Being;
+import textadv.base.world.Grid;
+import textadv.base.world.Tile;
+import textadv.base.outfits.Describable;
 import textadv.base.outfits.Item;
 
 public final class PlayerController extends Controller<PlayerController> {
@@ -36,13 +40,31 @@ public final class PlayerController extends Controller<PlayerController> {
 		}
 	}
 	
+	private static Describable findByName(String name, List<? extends Describable> list) {
+		for (Describable i : list) {
+			if (i.getName().equals(name)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
+	private static final String NO_ORDER = "Unknown order.";
+	
+	private static final String NO_ITEM = "No such item.";
+	
 	@SuppressWarnings("serial")
 	private static final Map<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>> ORDERS = new HashMap<Pair<String, Integer>, Function<String[], BiConsumer<Player, PlayerController>>>() {{
 		put(new Pair<>("step", 1), (String[] args) -> {
 			CarDir d = parseCarDir(args[1].toLowerCase());
 			return d == null ?
 				(b, c) -> {}:
-				(b, c) -> b.step(d);
+				(b, c) -> {
+					b.turn(d);
+					b.log(b.step() ?
+							"You step " + d.toString().toLowerCase() + '.' :
+							"You cannot step there.");
+				};
 		});
 		put(new Pair<>("look", 1), (String[] args) -> {
 			CarDir d = parseCarDir(args[1].toLowerCase());
@@ -52,13 +74,10 @@ public final class PlayerController extends Controller<PlayerController> {
 		});
 		put(new Pair<>("exam", 1), (String[] args) -> {
 			return (b, c) -> {
-				for (Item i : b.getInventory()) {
-					if (i.getName().equals(args[1])) {
-						b.log(i.describe());
-						return;
-					}
-				}
-				b.log("No such item.");
+				Describable found = findByName(args[1], b.getInventory());
+				b.log(found == null ?
+						NO_ITEM :
+						found);
 			};
 		});
 		put(new Pair<>("inv", 0), (String[] args) -> {
@@ -72,6 +91,61 @@ public final class PlayerController extends Controller<PlayerController> {
 		});
 		put(new Pair<>("help", 0), (String[] args) -> {
 			return (b, c) -> b.log("This might help.");
+		});
+		put(new Pair<>("pick", 1), (String[] args) -> {
+			return (b, c) -> {
+				Tile tile = b.getTile();
+				Grid grid = tile.getGrid();
+				int x = tile.getX();
+				int y = tile.getY();
+				Tile[] searchList = new Tile[] {
+						grid.getTile(x  , y  ),
+						grid.getTile(x, y - 1),
+						grid.getTile(x + 1, y),
+						grid.getTile(x, y + 1),
+						grid.getTile(x - 1, y)
+				};
+				for (Tile t : searchList) {
+					Describable found = findByName(args[1], t.getPiles());
+					if (found instanceof Item) {
+						b.pickUp((Item)found);
+						b.log("You pick up " + args[1] + '.');
+						return;
+					}
+				}
+				b.log(NO_ITEM);
+			};
+		});
+		put(new Pair<>("drop", 1), (String[] args) -> {
+			return (b, c) -> {
+				Item found = (Item)findByName(args[1], b.getInventory());
+				if (found != null) {
+					b.dropOff(found);
+					b.log("You drop " + args[1] + '.');
+				} else {
+					b.log(NO_ITEM);
+				}
+			};
+		});
+		put(new Pair<>("drop", 2), (String[] args) -> {
+			return (b, c) -> {
+				int times = 0;
+				try {
+					times = Integer.parseInt(args[2]);
+				} catch (NumberFormatException e) {
+					b.log(NO_ORDER);
+					return;
+				}
+				int number = 0;
+				for (int i = 0; i < times; i++) {
+					Item found = (Item)findByName(args[1], b.getInventory());
+					if (found != null) {
+						b.dropOff(found);
+						number++;
+					}
+				}
+				b.log("You drop " + number + " of " + args[1] + '.');
+			};
 		});
 	}};
 	
@@ -90,7 +164,7 @@ public final class PlayerController extends Controller<PlayerController> {
 	public void takeOrder(String[] givenOrder) {
 		Function<String[], BiConsumer<Player, PlayerController>> interpretation = ORDERS.get(new Pair<>(givenOrder[0], givenOrder.length - 1));
 		if (interpretation == null) {
-			order = (b, c) -> b.log("Unrecognized order");
+			order = (b, c) -> b.log(NO_ORDER);
 		} else {
 			order = interpretation.apply(givenOrder);
 		}

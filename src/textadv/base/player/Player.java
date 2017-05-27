@@ -82,7 +82,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	
 	@Override
 	public boolean pickUp(Item item) {
-		if (nowWeight + item.getWeight() <= maxWeight && ((Thing)item).getTile() == tile) {
+		if (nowWeight + item.getWeight() <= maxWeight) {
 			((Pile)item).pickUp();
 			((Thing)item).setTile(null);
 			inventory.add(item);
