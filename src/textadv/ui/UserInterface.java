@@ -53,10 +53,9 @@ public final class UserInterface {
 					}
 					return commands.getString(args[1], argNum);
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("step")
+			new InGameCommand<String>("step", controller)
 				.setArgNames("cardinal direction")
-				.setInfo("Step in a direction."))
-				.setController(controller)
+				.setInfo("Step in a direction.")
 				.setEffect((String[] args) -> {
 					CarDir direction = parseCarDir(args[1]);
 					if (direction == null) {
@@ -104,10 +103,9 @@ public final class UserInterface {
 				.setEffect((String[] args) -> Describable.nameList(
 						"Inventory:", 
 						grid.getPlayer().getInventory())),
-			((InGameCommand<String>) new InGameCommand<String>("pick")
+			new InGameCommand<String>("pick", controller)
 				.setArgNames("item name")
-				.setInfo("Pick up an item from one's vicinity."))
-				.setController(controller)
+				.setInfo("Pick up an item from one's vicinity.")
 				.setEffect((String[] args) -> {
 					Tile tile = player.getTile();
 					int x = tile.getX(),
@@ -127,10 +125,9 @@ public final class UserInterface {
 					}
 					return noItem;
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("drop")
+			new InGameCommand<String>("drop", controller)
 				.setArgNames("item name")
-				.setInfo("Drop an item from one's inventory"))
-				.setController(controller)
+				.setInfo("Drop an item from one's inventory")
 				.setEffect((String[] args) -> {
 					Item found = (Item)findByName(args[1], player.getInventory());
 					grid.loadPlayer(loadX, loadY);
@@ -142,10 +139,9 @@ public final class UserInterface {
 						return noItem;
 					}
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("drop")
+			new InGameCommand<String>("drop", controller)
 				.setArgNames("item name", "number")
-				.setInfo("Drop a number of items from one's inventory."))
-				.setController(controller)
+				.setInfo("Drop a number of items from one's inventory.")
 				.setEffect((String[] args) -> {
 					int times = 0;
 					try {
@@ -169,10 +165,9 @@ public final class UserInterface {
 						return noItem;
 					}
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("wld")
+			new InGameCommand<String>("wld", controller)
 				.setArgNames("tool name")
-				.setInfo("Wield a tool from one's inventory"))
-				.setController(controller)
+				.setInfo("Wield a tool from one's inventory")
 				.setEffect((String[] args) -> {
 					Describable found = findByName(args[1], player.getInventory());
 					if (found instanceof Tool<?>) {
@@ -186,10 +181,9 @@ public final class UserInterface {
 					}
 					return noTool;
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("unwld")
+			new InGameCommand<String>("unwld", controller)
 				.setArgNames("tool name")
-				.setInfo("Unwield a tool."))
-				.setController(controller)
+				.setInfo("Unwield a tool.")
 				.setEffect((String[] args) -> {
 					Describable found = findByName(args[1], player.getWielded());
 					if (found != null) {
@@ -200,10 +194,9 @@ public final class UserInterface {
 					}
 					return noTool;
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("atk")
+			new InGameCommand<String>("atk", controller)
 				.setArgNames("attack name", "cardinal direction")
-				.setInfo("Attack in some direction."))
-				.setController(controller)
+				.setInfo("Attack in some direction.")
 				.setEffect((String[] args) -> {
 					Tile target = player.look(parseCarDir(args[2]));
 					if (player.getAttack(args[1]) != null) {
@@ -220,10 +213,9 @@ public final class UserInterface {
 						return noAtk;
 					}
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("tlkto")
+			new InGameCommand<String>("tlkto", controller)
 				.setArgNames("being name")
-				.setInfo("Talk to a person in one's vicinity."))
-				.setController(controller)
+				.setInfo("Talk to a person in one's vicinity.")
 				.setEffect((String[] args) -> {
 					Tile tile = player.getTile();
 					int x = tile.getX(),
@@ -237,10 +229,9 @@ public final class UserInterface {
 					}
 					return "No such talking being.";
 				}),
-			((InGameCommand<String>) new InGameCommand<String>("resp")
+			new InGameCommand<String>("resp", controller)
 				.setArgNames("option number")
-				.setInfo("Respond while conversing."))
-				.setController(controller)
+				.setInfo("Respond while conversing.")
 				.setEffect((String[] args) -> {
 					if (!player.isListening()) {
 						return "You are not currently engaged in a conversation.";
