@@ -244,6 +244,14 @@ public final class UserInterface {
 						return "An integer argument is required";
 					}
 					return player.respond(option);
+				}),
+			new Command<String>("wait")
+				.setArgNames()
+				.setInfo("Wait one turn.")
+				.setEffect((String[] args) -> {
+					grid.loadPlayer(loadX, loadY);
+					grid.update();
+					return grid.draw();
 				})
 		);
 	}
