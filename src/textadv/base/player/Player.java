@@ -149,7 +149,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean unwield(Tool<?> tool) {
 		if (wielded.remove(tool)) {
@@ -184,12 +184,16 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		return false;
 	}
 	
-	public String listenTo(Talker talker, String talkName) {
+	public String listenTo(Talker talker) {
 		if (listenedTo != null) {
 			listenedTo.endTalk();
 		}
 		listenedTo = talker;
-		return talker.startTalk(talkName);
+		return talker.startTalk();
+	}
+	
+	public boolean isListening() {
+		return listenedTo != null;
 	}
 	
 	public String respond(int index) {

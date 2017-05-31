@@ -123,16 +123,12 @@ public class Grid {
 	};
 	
 	public String draw() {
-		map = "";
+		map = new String();
 		refLine = loaded.get(0).getY();
 		applyToLoaded(DRAW);
 		return map;
 	}
-	
-	public String window() {
-		return draw() + '\n' + player.getLog();
-	}
-	
+
 	public String draw(int x1, int y1, int x2, int y2) {
 		map = "";
 		refLine = loaded.get(0).getY();

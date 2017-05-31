@@ -4,33 +4,29 @@ import java.util.function.*;
 
 import textadv.base.world.Being;
 
-public abstract class Controller<T extends Controller<T>> {
-
-	protected Being controlled;
-	private boolean suppressed;
+public interface Controller<T extends Controller<T>> {
 	
-	public void setControlled(Being controlled) {
-		this.controlled = controlled;
-	}
+	public void setControlled(Being controlled);
 	
-	public Being getControlled() {
-		return controlled;
-	}
+	public Being getControlled();
 	
-	public void suppress() {
-		suppressed = true;
-	}
+	public void suppress();
 	
-	public void unsuppress() {
-		suppressed = false;
-	}
+	public void unsuppress();
+	
+	public boolean isSuppressed();
+	
+	public void setOrder(Consumer<T> order);
+	
+	public Consumer<T> getOrder();
 	
 	@SuppressWarnings("unchecked")
-	protected <U extends Being> boolean doOrder(BiConsumer<U, T> order) {
-		if (suppressed || order == null) {
+	default boolean doOrder() {
+		Consumer<T> order = getOrder();
+		if (isSuppressed() || order == null) {
 			return false;
 		} else {
-			order.accept((U)controlled, (T)this);
+			order.accept((T)this);
 			return true;
 		}
 	}

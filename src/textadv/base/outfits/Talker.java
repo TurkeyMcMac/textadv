@@ -6,7 +6,7 @@ public interface Talker extends Describable {
 	
 	public void endTalk();
 	
-	public String startTalk(String talkName);
+	public String startTalk();
 	
 	public boolean isTalking();
 	

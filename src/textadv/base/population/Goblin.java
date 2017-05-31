@@ -13,6 +13,7 @@ import textadv.base.outfits.*;
 import textadv.base.resources.Resources;
 import textadv.base.talks.EndTalk;
 import textadv.base.talks.Talk;
+import textadv.base.world.Being;
 import textadv.base.world.Monster;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
@@ -43,7 +44,8 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 			  5,
 			  5,
 			  facing,
-			  new ConstantController((b, c) -> {
+			  new ConstantController((c) -> {
+				  Being b = c.getControlled();
 				  Tile goblinTile = b.getTile();
 				  Tile playerTile = goblinTile.getGrid().getPlayer().getTile();
 				  goblinTile.getGrid().drop(new Pile("Poop", "Smelly.", '@', null), goblinTile.getX(), goblinTile.getY());
@@ -67,12 +69,12 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	}
 
 	@Override
-	public String talk(int index) {
-		nowTalk = nowTalk.pick(index);
+	public String talk(int option) {
+		nowTalk = nowTalk.pick(option);
 		if (nowTalk != null) {
 			return nowTalk.toString();
 		}
-		return null;
+		return "Invalid option.";
 	}
 
 	@Override
@@ -82,7 +84,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	}
 
 	@Override
-	public String startTalk(String talkName) {
+	public String startTalk() {
 		talking = true;
 		return (nowTalk = talks[0]).toString();
 		
