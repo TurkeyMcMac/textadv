@@ -1,6 +1,6 @@
 package textadv.base.outfits;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,7 +15,7 @@ public interface Describable {
 		return getName() + ": " + info;
 	}
 	
-	public static String nameList(String label, List<? extends Describable> list) {
+	public static String nameList(String label, Collection<? extends Describable> list) {
 		Map<String, Integer> occurrence = new TreeMap<>();
 		for (Describable d : list) {
 			String name = d.getName();

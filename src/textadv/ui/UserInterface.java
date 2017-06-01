@@ -1,6 +1,8 @@
 package textadv.ui;
 
 import textadv.base.directions.CarDir;
+import textadv.base.directions.RelDir;
+import textadv.base.outfits.Armor;
 import textadv.base.outfits.Describable;
 import textadv.base.outfits.Healthy;
 import textadv.base.outfits.Item;
@@ -12,7 +14,7 @@ import textadv.base.world.Grid;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
-import java.util.List;
+import java.util.Collection;
 
 import jwmh.commands.*;
 
@@ -59,7 +61,7 @@ public final class UserInterface {
 				.setEffect((String[] args) -> {
 					CarDir direction = parseCarDir(args[1]);
 					if (direction == null) {
-						return "Unknown direction.";
+						return noDir;
 					}
 					player.turn(direction);
 					boolean stepped = player.step();
@@ -213,6 +215,39 @@ public final class UserInterface {
 						return noAtk;
 					}
 				}),
+			new InGameCommand<String>("wear", controller)
+				.setArgNames("armor name", "armor direction")
+				.setInfo("Wear a bit of armor.")
+				.setEffect((String[] args) -> {
+					RelDir direction = parseRelDir(args[2]);
+					if (direction == null) {
+						return noDir;
+					}
+					Describable found = findByName(args[1], player.getInventory());
+					if (found instanceof Armor) {
+						if (player.wear((Armor)found, direction)) {
+							grid.loadPlayer(loadX, loadY);
+							grid.update();
+							return grid.draw() + '\n' + "You wear " + args[1] + '.';
+						} else {
+							return "You cannot wear that.";
+						}
+					}
+					return noArmr;
+				}),
+			new InGameCommand<String>("unwear", controller)
+				.setArgNames("armor name")
+				.setInfo("Unwear a bit of armor.")
+				.setEffect((String[] args) -> {
+					Describable found = findByName(args[1], player.getArmors());
+					if (found != null) {
+						player.unwear((Armor)found);
+						grid.loadPlayer(loadX, loadY);
+						grid.update();
+						return grid.draw() + "\nYou unwear " + args[1] + '.';
+					}
+					return noArmr;
+				}),
 			new InGameCommand<String>("tlkto", controller)
 				.setArgNames("being name")
 				.setInfo("Talk to a person in one's vicinity.")
@@ -258,9 +293,13 @@ public final class UserInterface {
 	
 	private static String noCmd = "Unknown command";
 	
+	private static String noDir = "Unknown direction";
+	
 	private static String noItem = "No such item.";
 	
 	private static String noTool = "No such tool.";
+	
+	private static String noArmr = "No such armor.";
 	
 	private static String noAtk = "No such attack.";
 
@@ -283,7 +322,26 @@ public final class UserInterface {
 		}
 	}
 	
-	private static Describable findByName(String name, List<? extends Describable> list) {
+	private static RelDir parseRelDir(String order) {
+		switch (order.toLowerCase()) {
+		case "f":
+		case "forward":
+			return RelDir.FORWARD;
+		case "r":
+		case "right":
+			return RelDir.RIGHT;
+		case "b":
+		case "backward":
+			return RelDir.BACKWARD;
+		case "l":
+		case "left":
+			return RelDir.LEFT;
+		default:
+			return null;
+		}
+	}
+	
+	private static Describable findByName(String name, Collection<? extends Describable> list) {
 		for (Describable i : list) {
 			if (i.getName().equals(name)) {
 				return i;

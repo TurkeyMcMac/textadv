@@ -14,6 +14,7 @@ public final class Main {
 		setPlayer(player);
 		drop(new Stick(null), 31, 30);
 		drop(new Stick(null), 31, 30);
+		drop(new Hat(null), 29, 30);
 		drop(new Block(null), 29, 28);
 		drop(new Goblin(CarDir.NORTH, null), 25, 23);
 		place(new Wall("Wall", "A solid wall.", '#', null), 30, 29);

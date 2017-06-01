@@ -1,6 +1,7 @@
 package textadv.base.player;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	private int nowWield = 0;
 	private int maxWield = 2;
 	private Talker listenedTo;
-	private String log;
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("player", "things");
@@ -122,6 +122,10 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		return wielded;
 	}
 	
+	public Set<Armor> getArmors() {
+		return armors.keySet();
+	}
+	
 	@Override
 	public DamageEffect getAttack(String name) {
 		return attacks.get(name);
@@ -206,14 +210,6 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	public void stopListening() {
 		listenedTo.endTalk();
 		listenedTo = null;
-	}
-	
-	public String getLog() {
-		return log;
-	}
-	
-	public void log(Object log) {
-		this.log = log.toString();
 	}
 	
 }
