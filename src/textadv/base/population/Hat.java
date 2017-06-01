@@ -3,7 +3,6 @@ package textadv.base.population;
 import textadv.base.world.Pile;
 import textadv.base.outfits.Armor;
 import textadv.base.outfits.ArmorWearer;
-import textadv.base.world.Tile;
 
 public final class Hat extends Pile implements Armor {
 	
@@ -11,8 +10,8 @@ public final class Hat extends Pile implements Armor {
 	int armor = 5;
 	ArmorWearer user;
 	
-	public Hat(Tile tile) {
-		super("Hat", "Wow, this hat is cool!", '@', tile);
+	public Hat() {
+		super("Hat", "Wow, this hat is cool!", '@');
 	}
 	
 	@Override

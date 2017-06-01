@@ -9,17 +9,11 @@ public abstract class Thing implements Describable {
 	protected Tile tile;
 	private boolean updated = false;
 	protected char icon;
-	
-	@SuppressWarnings("deprecation")
-	public Thing(String name, String info, char icon, Tile tile) {
+
+	public Thing(String name, String info, char icon) {
 		this.name = name;
 		this.info = info;
 		this.icon = icon;
-		if (tile != null) {
-			tile.place(this);
-		} else {
-			this.tile = null;
-		}
 	}
 	
 	abstract public Thing copy();

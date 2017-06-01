@@ -15,7 +15,6 @@ import textadv.base.talks.EndTalk;
 import textadv.base.talks.Talk;
 import textadv.base.world.Being;
 import textadv.base.world.Monster;
-import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
 public final class Goblin extends Monster implements Talker, Solid, Item {
@@ -36,7 +35,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	};
 	
 	@SuppressWarnings("serial")
-	public Goblin(CarDir facing, Tile tile) {
+	public Goblin(CarDir facing) {
 		super((String)RESOURCES.get("name"),
 			  (String)RESOURCES.get("info"),
 			  (Character)RESOURCES.get("icon"),
@@ -48,7 +47,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 				  Being b = c.getControlled();
 				  Tile goblinTile = b.getTile();
 				  Tile playerTile = goblinTile.getGrid().getPlayer().getTile();
-				  goblinTile.getGrid().drop(new Pile("Poop", "Smelly.", '@', null), goblinTile.getX(), goblinTile.getY());
+				  goblinTile.getGrid().drop(new Poop(), goblinTile.getX(), goblinTile.getY());
 				  int relativeX = playerTile.getX() - goblinTile.getX(),
 				  	  relativeY = playerTile.getY() - goblinTile.getY();
 				  b.turn(CarDir.directionOf(relativeX, relativeY));
@@ -64,8 +63,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 				  put(RelDir.RIGHT, 2);
 				  put(RelDir.BACKWARD, 1);
 				  put(RelDir.LEFT, 2);
-			  }},
-			  tile);
+			  }});
 	}
 
 	@Override

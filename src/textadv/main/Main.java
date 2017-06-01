@@ -9,15 +9,15 @@ import textadv.ui.UserInterface;
 public final class Main {
 	
 	private static Grid world = new Grid(100, 100, Tile.empty()) {{
-		Player player = new Player(CarDir.NORTH, null);
+		Player player = new Player(CarDir.NORTH);
 		drop(player, 30, 30);
 		setPlayer(player);
-		drop(new Stick(null), 31, 30);
-		drop(new Stick(null), 31, 30);
-		drop(new Hat(null), 29, 30);
-		drop(new Block(null), 29, 28);
-		drop(new Goblin(CarDir.NORTH, null), 25, 23);
-		place(new Wall("Wall", "A solid wall.", '#', null), 30, 29);
+		drop(new Stick(), 31, 30);
+		drop(new Stick(), 31, 30);
+		drop(new Hat(), 29, 30);
+		drop(new Block(), 29, 28);
+		drop(new Goblin(CarDir.NORTH), 25, 23);
+		place(new Wall("Wall", "A solid wall.", '#'), 30, 29);
 	}};
 	
 	private static UserInterface ui = new UserInterface(world);

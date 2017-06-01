@@ -53,7 +53,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		put(RelDir.LEFT, 2);
 	}};
 	
-	public Player(CarDir facing, Tile tile) {
+	public Player(CarDir facing) {
 		super(NAME, 
 			  INFO,
 			  ICON,
@@ -64,8 +64,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 			  CONTROLLER,
 			  ATTACKS,
 			  RESISTANCE,
-			  SHIELDS,
-			  tile);
+			  SHIELDS);
 		
 	}
 	
@@ -143,7 +142,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 
 	@Override
 	public boolean wield(Tool<?> tool) {
-		if (inventory.contains(tool) && nowWield < maxWield) {
+		if (inventory.contains(tool) && !wielded.contains(tool) && nowWield < maxWield) {
 			wielded.add(tool);
 			if (tool instanceof Weapon) {
 				((Weapon) tool).wield(this);

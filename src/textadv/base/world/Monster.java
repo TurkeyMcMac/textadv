@@ -32,10 +32,9 @@ public class Monster extends Being implements Healthy, Hostile {
 				   Controller<?> controller,
 				   Map<String, DamageEffect> attacks,
 				   Map<DamageType, Integer> resistance,
-				   Map<RelDir, Integer> shields,
-				   Tile tile)
+				   Map<RelDir, Integer> shields)
 	{
-		super(name, info, icon, facing, controller, tile);
+		super(name, info, icon, facing, controller);
 		this.faction = faction;
 		this.nowHealth = maxHealth;
 		this.maxHealth = maxHealth;

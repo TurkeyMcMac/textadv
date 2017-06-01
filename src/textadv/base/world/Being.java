@@ -14,10 +14,9 @@ public abstract class Being extends Pile {
 			String info, 
 			char icon,
 			CarDir facing, 
-			Controller<?> controller,
-			Tile tile) 
+			Controller<?> controller) 
 	{
-		super(name, info, icon, tile);
+		super(name, info, icon);
 		this.facing = facing;
 		controller.setControlled(this);
 		this.controller = controller;

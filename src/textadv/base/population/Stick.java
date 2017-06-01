@@ -1,7 +1,6 @@
 package textadv.base.population;
 
 import textadv.base.world.Pile;
-import textadv.base.world.Tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +20,8 @@ public class Stick extends Pile implements Weapon {
 		new ShortAttack("Hit", "A firm hit", 5, 5, DamageType.PHYSICAL)
 	));
 	
-	public Stick(Tile tile) {
-		super("Stick", "A hard stick.", '|', tile);
+	public Stick() {
+		super("Stick", "A hard stick.", '|');
 	}
 	
 	@Override

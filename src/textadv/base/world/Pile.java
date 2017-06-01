@@ -1,12 +1,14 @@
 package textadv.base.world;
 public class Pile extends Thing {
 
-	public Pile(String name, String info, char icon, Tile tile) {
-		super(name, info, icon, tile);
+	public Pile(String name, String info, char icon) {
+		super(name, info, icon);
 	}
 	
 	public Pile copy() {
-		return new Pile(name, info, icon, tile);
+		Pile newPile = new Pile(name, info, icon);
+		newPile.setTile(tile);
+		return newPile;
 	}
 	
 	public void drop(Tile tile) {

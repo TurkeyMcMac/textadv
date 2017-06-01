@@ -10,13 +10,13 @@ import textadv.base.resources.Resources;
 public class Block extends Pile implements Item, Solid {
 	
 	@SuppressWarnings("unchecked")
-	public Block(Tile tile) {
-		super("Block", "A heavy block of material.", (char) ((Map<String, Object>)Resources.get("plant", "things")).get("icon"), tile);
+	public Block() {
+		super("Block", "A heavy block of material.", (char) ((Map<String, Object>)Resources.get("plant", "things")).get("icon"));
 	}
 	
 	@Override
 	public int getWeight() {
-		return 500;
+		return 2;
 	}
 
 }
