@@ -24,15 +24,14 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	
 	private Talk nowTalk;
 	private boolean talking;
-	private Talk[] talks = new Talk[] {
+	private Talk talk = 
 		new Talk("Hello", Talk.nexts(
 			"Hi", new EndTalk("", this),
 			"Hello", new Talk("Hey", Talk.nexts(
 				"Hi", new EndTalk("", this),
 				"Hey", new EndTalk("Foo", this)
 			))
-		))
-	};
+		));
 	
 	@SuppressWarnings("serial")
 	public Goblin(CarDir facing) {
@@ -84,7 +83,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	@Override
 	public String startTalk() {
 		talking = true;
-		return (nowTalk = talks[0]).toString();
+		return (nowTalk = talk).toString();
 		
 	}
 	
