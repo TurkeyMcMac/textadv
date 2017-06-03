@@ -2,6 +2,9 @@ package textadv.base.player;
 
 import java.util.Map;
 import java.util.Set;
+
+import jwmh.misc.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +84,9 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	
 	@Override
 	public boolean pickUp(Item item) {
-		if (nowWeight + item.getWeight() <= maxWeight) {
+		int newWeight = nowWeight + item.getWeight();
+		if (newWeight <= maxWeight) {
+			nowWeight = newWeight;
 			((Pile)item).pickUp();
 			((Thing)item).setTile(null);
 			inventory.add(item);
@@ -111,6 +116,10 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		for (Item i : inventory) {
 			dropOff(i);
 		}
+	}
+	
+	public Pair<Integer, Integer> getWeights() {
+		return new Pair<>(nowWeight, maxWeight);
 	}
 	
 	public List<Item> getInventory() {

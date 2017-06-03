@@ -14,9 +14,12 @@ import textadv.base.world.Grid;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import jwmh.commands.*;
+import jwmh.misc.Pair;
 
 public final class UserInterface {
 	
@@ -86,9 +89,9 @@ public final class UserInterface {
 				.setInfo("Inspect a tile in one's vicinity.")
 				.setEffect((String[] args) -> {
 					grid.loadPlayer(loadX, loadY);
-					return	grid.draw() + 
-							'\n' +
-							grid.getPlayer().look(parseCarDir(args[1])).toString();
+					return	grid.draw()
+						  + '\n'
+						  + grid.getPlayer().look(parseCarDir(args[1])).toString();
 				}),
 			new Command<String>("exam")
 				.setArgNames("item name")
@@ -102,9 +105,15 @@ public final class UserInterface {
 			new Command<String>("inv")
 				.setArgNames()
 				.setInfo("List the contents of one's inventory.")
-				.setEffect((String[] args) -> Describable.nameList(
+				.setEffect((String[] args) -> {
+					Pair<Integer, Integer> weight = player.getWeights();
+					return
+					Describable.nameList(
 						"Inventory:", 
-						grid.getPlayer().getInventory())),
+						player.getInventory())
+					  + "\nWeight: " + weight.start + '/' + weight.end;
+						
+					}),
 			new InGameCommand<String>("pick", controller)
 				.setArgNames("item name")
 				.setInfo("Pick up an item from one's vicinity.")
@@ -171,14 +180,14 @@ public final class UserInterface {
 				.setArgNames("tool name")
 				.setInfo("Wield a tool from one's inventory")
 				.setEffect((String[] args) -> {
-					Describable found = findByName(args[1], player.getInventory());
-					if (found instanceof Tool<?>) {
-						if (player.wield((Tool<?>)found)) {
-							grid.loadPlayer(loadX, loadY);
-							grid.update();
-							return grid.draw() + '\n' + "You wield " + args[1] + '.';
-						} else {
-							return "You cannot wield that.";
+					List<Describable> foundList = findAllByName(args[1], player.getInventory());
+					for (Describable found : foundList) {
+						if (found instanceof Tool<?>) {
+							if (player.wield((Tool<?>)found)) {
+								grid.loadPlayer(loadX, loadY);
+								grid.update();
+								return grid.draw() + '\n' + "You wield " + args[1] + '.';
+							}
 						}
 					}
 					return noTool;
@@ -223,14 +232,14 @@ public final class UserInterface {
 					if (direction == null) {
 						return noDir;
 					}
-					Describable found = findByName(args[1], player.getInventory());
-					if (found instanceof Armor) {
-						if (player.wear((Armor)found, direction)) {
-							grid.loadPlayer(loadX, loadY);
-							grid.update();
-							return grid.draw() + '\n' + "You wear " + args[1] + '.';
-						} else {
-							return "You cannot wear that.";
+					List<Describable> foundList = findAllByName(args[1], player.getInventory());
+					for (Describable found : foundList) {
+						if (found instanceof Armor) {
+							if (player.wear((Armor)found, direction)) {
+								grid.loadPlayer(loadX, loadY);
+								grid.update();
+								return grid.draw() + '\n' + "You wear " + args[1] + '.';
+							}
 						}
 					}
 					return noArmr;
@@ -248,7 +257,7 @@ public final class UserInterface {
 					}
 					return noArmr;
 				}),
-			new InGameCommand<String>("tlkto", controller)
+			new InGameCommand<String>("talk", controller)
 				.setArgNames("being name")
 				.setInfo("Talk to a person in one's vicinity.")
 				.setEffect((String[] args) -> {
@@ -297,9 +306,9 @@ public final class UserInterface {
 	
 	private static String noItem = "No such item.";
 	
-	private static String noTool = "No such tool.";
+	private static String noTool = "Unwieldable tool.";
 	
-	private static String noArmr = "No such armor.";
+	private static String noArmr = "Unwearable armor.";
 	
 	private static String noAtk = "No such attack.";
 
@@ -348,6 +357,16 @@ public final class UserInterface {
 			}
 		}
 		return null;
+	}
+	
+	private static List<Describable> findAllByName(String name, Collection<? extends Describable> list) {
+		List<Describable> foundList = new ArrayList<>();
+		for (Describable i : list) {
+			if (i.getName().equals(name)) {
+				foundList.add(i);
+			}
+		}
+		return foundList;
 	}
 	
 	private static Tile[] surroundings(int x, int y, Grid grid) {
