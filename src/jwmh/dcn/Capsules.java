@@ -53,7 +53,7 @@ public final class Capsules {
 	}
 	
 	public static Object readFile(String path, String capsuleId) throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(path));
+		byte[] encoded = Files.readAllBytes(Paths.get(path + ".dcn"));
 		return read(new String(encoded, StandardCharsets.UTF_8), capsuleId);
 	}
 	
