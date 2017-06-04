@@ -7,7 +7,7 @@ public class Command<U> {
 	String name;
 	String[] argNames = new String[0];
 	String info = "...";
-	Function<String[], U> effect = (args) -> { return null; };
+	protected Function<String[], U> effect = (args) -> { return null; };
 
 	public Command(String name) {
 		this.name = name;

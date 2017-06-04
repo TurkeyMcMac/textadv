@@ -14,6 +14,8 @@ import textadv.base.outfits.WeaponWielder;
 
 public class Stick extends Pile implements Weapon {
 	
+	private static final long serialVersionUID = 8341195748466166301L;
+	
 	int weight = 2;
 	WeaponWielder user;
 	List<DamageEffect> attacks = new ArrayList<DamageEffect>(Arrays.asList(

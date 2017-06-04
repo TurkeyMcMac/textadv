@@ -18,6 +18,8 @@ import textadv.base.world.*;
 
 public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid {
 	
+	private static final long serialVersionUID = 3515036676370145980L;
+	
 	private List<Item> inventory = new ArrayList<Item>();
 	private int nowWeight = 0;
 	private int maxWeight = 10;

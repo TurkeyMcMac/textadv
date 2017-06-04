@@ -12,10 +12,11 @@ import textadv.base.outfits.Hostile;
 
 public class Monster extends Being implements Healthy, Hostile {
 	
+	private static final long serialVersionUID = -3790204973600181028L;
+	
 	private Faction faction;
 	private boolean alive = true;
 	protected Map<String, DamageEffect> attacks;
-	
 	private Map<DamageType, Integer> resistance;
 	protected Map<RelDir, Integer> shields;
 	private int nowHealth;

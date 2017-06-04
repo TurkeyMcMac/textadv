@@ -8,6 +8,8 @@ import textadv.base.world.Thing;
 
 public abstract class Attack extends DamageEffect {
 	
+	private static final long serialVersionUID = 5152961023291758525L;
+	
 	int accuracy;
 	Hostile user;
 	

@@ -1,6 +1,8 @@
 package textadv.base.world;
 public class Pile extends Thing {
 
+	private static final long serialVersionUID = -2847910894510039063L;
+
 	public Pile(String name, String info, char icon) {
 		super(name, info, icon);
 	}

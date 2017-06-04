@@ -4,6 +4,8 @@ import textadv.base.directions.CarDir;
 
 public class ShortAttack extends Attack {
 
+	private static final long serialVersionUID = 2780317764418171811L;
+
 	public ShortAttack(String name, String info, int accuracy, int damage, DamageType type) {
 		super(name, info, accuracy, damage, type);
 	}

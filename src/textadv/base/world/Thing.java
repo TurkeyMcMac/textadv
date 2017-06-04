@@ -1,13 +1,17 @@
 package textadv.base.world;
 
+import java.io.Serializable;
+
 import textadv.base.outfits.Describable;
 
-public abstract class Thing implements Describable {
+public abstract class Thing implements Describable, Serializable {
+
+	private static final long serialVersionUID = 2663437350753479720L;
 	
 	protected String name;
 	protected String info;
 	protected Tile tile;
-	private boolean updated = false;
+	private transient boolean updated = false;
 	protected char icon;
 
 	public Thing(String name, String info, char icon) {

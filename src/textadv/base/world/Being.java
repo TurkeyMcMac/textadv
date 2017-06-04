@@ -6,6 +6,8 @@ import textadv.base.directions.RelDir;
 
 public abstract class Being extends Pile {
 	
+	private static final long serialVersionUID = -7993888953686955088L;
+	
 	private CarDir facing;
 	protected Controller<?> controller;
 	

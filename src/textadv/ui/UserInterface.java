@@ -296,6 +296,13 @@ public final class UserInterface {
 					grid.loadPlayer(loadX, loadY);
 					grid.update();
 					return grid.draw();
+				}),
+			new Command<String>("exit")
+				.setArgNames()
+				.setInfo("Save and exit the game.")
+				.setEffect((String[] args) -> {
+					System.exit(0);
+					return new String();
 				})
 		);
 	}

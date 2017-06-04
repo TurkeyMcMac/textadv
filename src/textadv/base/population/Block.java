@@ -9,6 +9,8 @@ import textadv.base.resources.Resources;
 
 public class Block extends Pile implements Item, Solid {
 	
+	private static final long serialVersionUID = -1532932248711626371L;
+
 	@SuppressWarnings("unchecked")
 	public Block() {
 		super("Block", "A heavy block of material.", (char) ((Map<String, Object>)Resources.get("plant", "things")).get("icon"));

@@ -6,6 +6,8 @@ import textadv.base.outfits.ArmorWearer;
 
 public final class Hat extends Pile implements Armor {
 	
+	private static final long serialVersionUID = -264448370169699369L;
+	
 	int weight = 1;
 	int armor = 5;
 	ArmorWearer user;

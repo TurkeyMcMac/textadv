@@ -5,6 +5,8 @@ import textadv.base.resources.Resources;
 
 public class Ground extends Thing {
 	
+	private static final long serialVersionUID = 555347518928955631L;
+
 	public Ground(String name, String info, char icon) {
 		super(name, info, icon);
 	}

@@ -8,6 +8,7 @@ import textadv.ui.UserInterface;
 
 public final class Main {
 	
+	@SuppressWarnings("serial")
 	private static Grid world = new Grid(100, 100, Tile.empty()) {{
 		Player player = new Player(CarDir.NORTH);
 		drop(player, 30, 30);

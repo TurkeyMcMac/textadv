@@ -4,7 +4,9 @@ import textadv.base.directions.CarDir;
 
 public class RangeAttack extends Attack {
 	
-	int range;
+	private static final long serialVersionUID = -4107446303273455572L;
+	
+	private int range;
 	
 	public RangeAttack(String name, String info, int damage, int accuracy, int range, DamageType type) {
 		super(name, info, accuracy, damage, type);

@@ -2,21 +2,23 @@
 package textadv.base.world;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import textadv.base.outfits.Solid;
 import textadv.base.player.Player;
 
-public class Grid {
+public class Grid implements Serializable {
 
+	private static final long serialVersionUID = 4473089899578619072L;
+	
 	public final int WIDTH;
 	public final int HEIGHT;
 	Tile[][] tiles;
-	private int tick = 0;
-	private List<Tile> loaded = new ArrayList<Tile>();
-	private String map;
-	private int refLine;
+	private transient List<Tile> loaded = new ArrayList<Tile>();
+	private transient String map;
+	private transient int refLine;
 	private Player player;
 	
 	public Grid(int width, int height, Tile filler) {
@@ -144,7 +146,6 @@ public class Grid {
 	}
 	
 	public void update() {
-		tick = (tick + 1) % Integer.MAX_VALUE;
 		applyToLoaded((t) -> t.resetUpdater());
 		applyToLoaded((t) -> t.update());
 	}

@@ -1,5 +1,6 @@
-package jwmh.commands;
+package textadv.ui;
 
+import jwmh.commands.Command;
 import textadv.base.player.PlayerController;
 
 public class InGameCommand<U> extends Command<U> {

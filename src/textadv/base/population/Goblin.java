@@ -19,6 +19,8 @@ import textadv.base.world.Tile;
 
 public final class Goblin extends Monster implements Talker, Solid, Item {
 	
+	private static final long serialVersionUID = -468927277833713444L;
+
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("goblin-med", "things");
 	

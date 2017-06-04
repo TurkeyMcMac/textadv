@@ -1,9 +1,13 @@
 package textadv.base.damage;
 
+import java.io.Serializable;
+
 import textadv.base.outfits.Describable;
 import textadv.base.outfits.Healthy;
 
-public class DamageEffect implements Describable {
+public class DamageEffect implements Describable, Serializable {
+	
+	private static final long serialVersionUID = -6652181722337993294L;
 	
 	private String name;
 	private String info;
