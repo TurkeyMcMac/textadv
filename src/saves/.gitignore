@@ -1,0 +1,3 @@
+# Ignore all files in saves except this one.
+*
+!.gitignore
