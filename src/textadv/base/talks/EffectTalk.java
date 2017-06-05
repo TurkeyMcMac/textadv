@@ -7,6 +7,8 @@ import textadv.base.outfits.Talker;
 
 public class EffectTalk extends Talk {
 
+	private static final long serialVersionUID = 7950078233988527905L;
+	
 	private Consumer<Talker> effect;
 	private Talker talker;
 	

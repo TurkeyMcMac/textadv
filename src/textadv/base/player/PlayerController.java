@@ -1,8 +1,8 @@
 package textadv.base.player;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
+import textadv.base.control.AIOrder;
 import textadv.base.control.Controller;
 import textadv.base.world.*;
 
@@ -40,10 +40,10 @@ public final class PlayerController implements Controller<PlayerController> {
 	}
 
 	@Override
-	public void setOrder(Consumer<PlayerController> order) {}
+	public void setOrder(AIOrder<PlayerController> order) {}
 
 	@Override
-	public Consumer<PlayerController> getOrder() {
+	public AIOrder<PlayerController> getOrder() {
 		return null;
 	}
 

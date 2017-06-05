@@ -1,10 +1,13 @@
 package textadv.base.talks;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Talk {
+public class Talk implements Serializable {
+	
+	private static final long serialVersionUID = 2565840660480700392L;
 	
 	private String text;
 	private List<Talk> results;

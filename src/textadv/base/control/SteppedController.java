@@ -1,6 +1,5 @@
 package textadv.base.control;
 
-import java.util.function.Consumer;
 import java.util.Map;
 
 import textadv.base.world.Being;
@@ -13,12 +12,12 @@ public final class SteppedController implements Controller<SteppedController> {
 	private int sleep = 0;
 	private Being controlled;
 	private boolean suppressed = false;
-	private Consumer<SteppedController>[] steps;
-	private Consumer<SteppedController> order;
+	private AIOrder<SteppedController>[] steps;
+	private AIOrder<SteppedController> order;
 	private Map<String, Object> vars;
 	
 	@SafeVarargs
-	public SteppedController(Consumer<SteppedController> ... steps) {
+	public SteppedController(AIOrder<SteppedController> ... steps) {
 		this.steps = steps;
 	}
 	
@@ -72,12 +71,12 @@ public final class SteppedController implements Controller<SteppedController> {
 	}
 
 	@Override
-	public void setOrder(Consumer<SteppedController> order) {
+	public void setOrder(AIOrder<SteppedController> order) {
 		this.order = order;
 	}
 
 	@Override
-	public Consumer<SteppedController> getOrder() {
+	public AIOrder<SteppedController> getOrder() {
 		return order;
 	}
 

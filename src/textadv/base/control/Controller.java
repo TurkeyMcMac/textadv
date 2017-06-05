@@ -1,7 +1,6 @@
 package textadv.base.control;
 
 import java.io.Serializable;
-import java.util.function.*;
 
 import textadv.base.world.Being;
 
@@ -17,13 +16,13 @@ public interface Controller<T extends Controller<T>> extends Serializable {
 	
 	public boolean isSuppressed();
 	
-	public void setOrder(Consumer<T> order);
+	public void setOrder(AIOrder<T> order);
 	
-	public Consumer<T> getOrder();
+	public AIOrder<T> getOrder();
 	
 	@SuppressWarnings("unchecked")
 	default boolean doOrder() {
-		Consumer<T> order = getOrder();
+		AIOrder<T> order = getOrder();
 		if (isSuppressed() || order == null) {
 			return false;
 		} else {

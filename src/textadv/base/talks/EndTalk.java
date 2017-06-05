@@ -6,6 +6,8 @@ import textadv.base.outfits.Talker;
 
 public final class EndTalk extends Talk {
 	
+	private static final long serialVersionUID = -4254007465755123791L;
+
 	Talker endee;
 	
 	public static final String END_MESSAGE = "This conversation is over.";

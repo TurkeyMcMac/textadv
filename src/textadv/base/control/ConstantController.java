@@ -1,7 +1,5 @@
 package textadv.base.control;
 
-import java.util.function.Consumer;
-
 import textadv.base.world.Being;
 
 public final class ConstantController implements Controller<ConstantController> {
@@ -9,10 +7,10 @@ public final class ConstantController implements Controller<ConstantController> 
 	private static final long serialVersionUID = 2112439959752803309L;
 	
 	private Being controlled;
-	private Consumer<ConstantController> order;
+	private AIOrder<ConstantController> order;
 	private boolean suppressed = false;
 	
-	public ConstantController(Consumer<ConstantController> order) {
+	public ConstantController(AIOrder<ConstantController> order) {
 		this.order = order;
 	}
 	
@@ -42,12 +40,12 @@ public final class ConstantController implements Controller<ConstantController> 
 	}
 
 	@Override
-	public void setOrder(Consumer<ConstantController> order) {
+	public void setOrder(AIOrder<ConstantController> order) {
 		this.order = order;
 	}
 
 	@Override
-	public Consumer<ConstantController> getOrder() {
+	public AIOrder<ConstantController> getOrder() {
 		return order;
 	}
 
