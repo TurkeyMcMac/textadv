@@ -4,7 +4,6 @@ package textadv.base.world;
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 import textadv.base.outfits.Solid;
 import textadv.base.player.Player;
@@ -16,9 +15,7 @@ public class Grid implements Serializable {
 	public final int WIDTH;
 	public final int HEIGHT;
 	Tile[][] tiles;
-	private transient List<Tile> loaded = new ArrayList<Tile>();
-	private transient String map;
-	private transient int refLine;
+	private transient List<Tile> loaded = new ArrayList<>();
 	private Player player;
 	
 	public Grid(int width, int height, Tile filler) {
@@ -76,7 +73,7 @@ public class Grid implements Serializable {
 		return tile.place(ground);
 	}
 	
-	public void load(int x1, int y1, int x2, int y2) {
+	public List<Tile> select(int x1, int y1, int x2, int y2) {
 		if (x1 < 0) {
 			x1 = 0;
 		}
@@ -89,29 +86,23 @@ public class Grid implements Serializable {
 		if (y2 > HEIGHT - 1) {
 			y2 = HEIGHT - 1;
 		}
-		loaded = new ArrayList<Tile>();
+		List<Tile> selected = new ArrayList<>();
 		for(int i = y1; i <= y2; i++) {
 			for(int j = x1; j <= x2; j++) {
-				loaded.add(tiles[j][i]);
+				selected.add(tiles[j][i]);
 			}
 		}
+		return selected;
 	}
 	
-	private void applyToLoaded(Consumer<Tile> f) {
-		for (Tile t : loaded) {
-			f.accept(t);
-		}
-	}
-	
-	private void applyToLoaded(int x1, int y1, int x2, int y2, Consumer<Tile> f) {
-		load(x1, y1, x2, y2);
-		applyToLoaded(f);
+	public void load(int x1, int y1, int x2, int y2) {
+		loaded = select(x1, y1, x2, y2);
 	}
 	
 	public String draw() {
-		map = new String();
-		refLine = loaded.get(0).getY();
-		applyToLoaded((t) -> {
+		String map = new String();
+		int refLine = loaded.get(0).getY();
+		for (Tile t : loaded) {
 			char icon = t.getGround().getIcon();
 			for (Pile p : t.getPiles()) {
 				icon = p.getIcon();
@@ -125,7 +116,7 @@ public class Grid implements Serializable {
 				refLine = y;
 			}
 			map = map + icon;
-		});
+		};
 		return map;
 	}
 	
@@ -137,8 +128,8 @@ public class Grid implements Serializable {
 	}
 	
 	public void update() {
-		applyToLoaded((t) -> t.resetUpdater());
-		applyToLoaded((t) -> t.update());
+		for (Tile t : loaded) t.resetUpdater();
+		for (Tile t : loaded) t.update();
 	}
 	
 	public void drop(Pile pile, int x, int y) {
