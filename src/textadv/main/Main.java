@@ -80,6 +80,8 @@ public final class Main {
 					ui = new UserInterface(world);
 					location = SAVES + args[1];
 					break;
+				default:
+					badArgs();
 			}
 		} else {
 			badArgs();
