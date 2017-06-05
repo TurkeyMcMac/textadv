@@ -305,6 +305,13 @@ public final class UserInterface {
 					Main.save();
 					System.exit(0);
 					return new String();
+				}),
+			new Command<String>("exit!")
+				.setArgNames()
+				.setInfo("Exit the game without saving.")
+				.setEffect((String[] args) -> {
+					System.exit(0);
+					return new String();
 				})
 		);
 	}

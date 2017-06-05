@@ -44,11 +44,7 @@ public final class Main {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			if (e instanceof NotSerializableException) {
-				System.out.println(e.getMessage());
-			} else {
-				e.printStackTrace();
-			}
+			e.printStackTrace();
 		}
 	}
 	
