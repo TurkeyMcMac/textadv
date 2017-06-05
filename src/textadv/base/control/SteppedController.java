@@ -7,6 +7,8 @@ import textadv.base.world.Being;
 
 public final class SteppedController implements Controller<SteppedController> {
 	
+	private static final long serialVersionUID = 2937053840263332981L;
+	
 	private int tick = -1;
 	private int sleep = 0;
 	private Being controlled;

@@ -6,6 +6,8 @@ import textadv.base.world.Being;
 
 public final class ConstantController implements Controller<ConstantController> {
 	
+	private static final long serialVersionUID = 2112439959752803309L;
+	
 	private Being controlled;
 	private Consumer<ConstantController> order;
 	private boolean suppressed = false;

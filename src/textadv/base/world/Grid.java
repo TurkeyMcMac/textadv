@@ -108,33 +108,24 @@ public class Grid implements Serializable {
 		applyToLoaded(f);
 	}
 	
-	private final Consumer<Tile> DRAW = (t) -> {
-		char icon = t.getGround().getIcon();
-		for (Pile p : t.getPiles()) {
-			icon = p.getIcon();
-			if (p instanceof Being) {	
-				break;
-			}
-		}
-		int y = t.getY();
-		if (y > refLine) {
-			map += '\n';
-			refLine = y;
-		}
-		map = map + icon;
-	};
-	
 	public String draw() {
 		map = new String();
 		refLine = loaded.get(0).getY();
-		applyToLoaded(DRAW);
-		return map;
-	}
-
-	public String draw(int x1, int y1, int x2, int y2) {
-		map = "";
-		refLine = loaded.get(0).getY();
-		applyToLoaded(x1, y1, x2, y2, DRAW);
+		applyToLoaded((t) -> {
+			char icon = t.getGround().getIcon();
+			for (Pile p : t.getPiles()) {
+				icon = p.getIcon();
+				if (p instanceof Being) {	
+					break;
+				}
+			}
+			int y = t.getY();
+			if (y > refLine) {
+				map += '\n';
+				refLine = y;
+			}
+			map = map + icon;
+		});
 		return map;
 	}
 	

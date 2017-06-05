@@ -1,18 +1,21 @@
 package textadv.base.factions;
 
 import java.util.Map;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
 import textadv.base.outfits.Describable;
 import textadv.base.resources.Resources;
 
-public class Faction implements Describable {
+public class Faction implements Describable, Serializable {
 	
-	String name;
-	String info;
-	int defaultRelationship;
-	Map<Faction, Integer> relationships;
+	private static final long serialVersionUID = -3988592444744145319L;
+	
+	private String name;
+	private String info;
+	private int defaultRelationship;
+	private Map<Faction, Integer> relationships;
 	
 	private static final Map<String, Faction> FACTIONS = new HashMap<>();
 	

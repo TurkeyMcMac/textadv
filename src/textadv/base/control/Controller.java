@@ -1,10 +1,11 @@
 package textadv.base.control;
 
+import java.io.Serializable;
 import java.util.function.*;
 
 import textadv.base.world.Being;
 
-public interface Controller<T extends Controller<T>> {
+public interface Controller<T extends Controller<T>> extends Serializable {
 	
 	public void setControlled(Being controlled);
 	

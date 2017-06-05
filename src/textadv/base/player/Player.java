@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jwmh.misc.Pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import textadv.base.outfits.*;
 import textadv.base.resources.Resources;
 import textadv.base.world.*;
 
-public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid {
+public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid, Serializable {
 	
 	private static final long serialVersionUID = 3515036676370145980L;
 	

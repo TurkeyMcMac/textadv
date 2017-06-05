@@ -8,6 +8,8 @@ import textadv.base.world.*;
 
 public final class PlayerController implements Controller<PlayerController> {
 	
+	private static final long serialVersionUID = -1938356098085148202L;
+	
 	private boolean suppressed = false;
 	
 	public PlayerController() {}

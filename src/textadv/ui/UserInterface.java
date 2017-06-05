@@ -13,6 +13,7 @@ import textadv.base.player.PlayerController;
 import textadv.base.world.Grid;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
+import textadv.main.Main;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -301,6 +302,7 @@ public final class UserInterface {
 				.setArgNames()
 				.setInfo("Save and exit the game.")
 				.setEffect((String[] args) -> {
+					Main.save();
 					System.exit(0);
 					return new String();
 				})

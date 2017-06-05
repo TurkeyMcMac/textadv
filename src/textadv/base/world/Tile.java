@@ -5,9 +5,12 @@ import java.util.List;
 import textadv.base.outfits.Describable;
 import textadv.base.outfits.Solid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public final class Tile {
+public final class Tile implements Serializable {
+	
+	private static final long serialVersionUID = -2784000089186381137L;
 	
 	private Ground ground;
 	private List<Pile> piles;
