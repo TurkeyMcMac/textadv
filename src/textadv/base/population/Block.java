@@ -5,7 +5,7 @@ import textadv.base.world.*;
 import java.util.Map;
 
 import textadv.base.outfits.*;
-import textadv.base.resources.Resources;
+import textadv.base.resources.Things;
 
 public class Block extends Pile implements Item, Solid {
 	
@@ -13,7 +13,7 @@ public class Block extends Pile implements Item, Solid {
 
 	@SuppressWarnings("unchecked")
 	public Block() {
-		super("Block", "A heavy block of material.", (char) ((Map<String, Object>)Resources.get("plant", "things")).get("icon"));
+		super("Block", "A heavy block of material.", (char) ((Map<String, Object>)Things.get("plant")).get("icon"));
 	}
 	
 	@Override

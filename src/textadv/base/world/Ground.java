@@ -1,7 +1,7 @@
 package textadv.base.world;
 
 import java.util.Map;
-import textadv.base.resources.Resources;
+import textadv.base.resources.Things;
 
 public class Ground extends Thing {
 	
@@ -18,7 +18,7 @@ public class Ground extends Thing {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("empty", "things");
+	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Things.get("empty");
 	
 	public static Ground empty() {
 		return new Ground((String)RESOURCES.get("name"), (String)RESOURCES.get("info"), (Character)RESOURCES.get("icon"));

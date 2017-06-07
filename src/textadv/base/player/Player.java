@@ -14,7 +14,7 @@ import textadv.base.damage.*;
 import textadv.base.directions.*;
 import textadv.base.factions.Faction;
 import textadv.base.outfits.*;
-import textadv.base.resources.Resources;
+import textadv.base.resources.Things;
 import textadv.base.world.*;
 
 public final class Player extends Monster implements WeaponWielder, ArmorWearer, Solid, Serializable {
@@ -31,7 +31,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	private Talker listenedTo;
 	
 	@SuppressWarnings("unchecked")
-	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("player", "things");
+	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Things.get("player");
 
 	public static final String NAME = (String)RESOURCES.get("name");
 	

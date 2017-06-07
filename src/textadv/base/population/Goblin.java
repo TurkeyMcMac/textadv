@@ -10,7 +10,7 @@ import textadv.base.directions.CarDir;
 import textadv.base.directions.RelDir;
 import textadv.base.factions.Faction;
 import textadv.base.outfits.*;
-import textadv.base.resources.Resources;
+import textadv.base.resources.Things;
 import textadv.base.talks.EndTalk;
 import textadv.base.talks.Talk;
 import textadv.base.world.Being;
@@ -22,7 +22,7 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 	private static final long serialVersionUID = -468927277833713444L;
 
 	@SuppressWarnings("unchecked")
-	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Resources.get("goblin-med", "things");
+	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Things.get("goblin-med");
 	
 	private Talk nowTalk;
 	private boolean talking;

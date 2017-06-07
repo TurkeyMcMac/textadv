@@ -4,13 +4,13 @@ import java.util.function.Function;
 
 public class Command<U> {
 	
-	String name;
+	String[] names;
 	String[] argNames = new String[0];
 	String info = "...";
 	protected Function<String[], U> effect = (args) -> { return null; };
-
-	public Command(String name) {
-		this.name = name;
+	
+	public Command(String ... names) {
+		this.names = names;
 	}
 	
 	public Command<U> setArgNames(String ... argNames) {
@@ -34,7 +34,10 @@ public class Command<U> {
 	
 	@Override
 	public String toString() {
-		String stringified = name + ' ';
+		String stringified = new String();
+		for (String n : names) {
+			stringified += n + ' ';
+		}
 		for (String s : argNames) {
 			stringified += '<' + s + "> ";
 		}

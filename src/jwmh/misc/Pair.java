@@ -10,6 +10,11 @@ public class Pair<T, U> {
 		this.end = end;
 	}
 	
+	public Pair(Pair<T, U> template) {
+		start = template.start;
+		end = template.end;
+	}
+	
 	public String toString() {
 		return "(" + start + ", " + end + ")";
 	}

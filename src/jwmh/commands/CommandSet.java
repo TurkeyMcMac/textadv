@@ -14,7 +14,9 @@ public class CommandSet<T> {
 	@SafeVarargs
 	public CommandSet(Command<T> ... cmds) {
 		for (Command<T> c : cmds) {
-			cmdMap.put(new Pair<>(c.name, c.argNames.length), c);
+			for (String n : c.names) {
+				cmdMap.put(new Pair<>(n, c.argNames.length), c);
+			}
 		}
 	}
 	
