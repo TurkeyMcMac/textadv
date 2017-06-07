@@ -11,4 +11,9 @@ final class StringCapsule extends PrimitiveCapsule<String> {
 		return contents;
 	}
 
+	@Override
+	protected boolean matches(Object anObject) {
+		return anObject instanceof String;
+	}
+
 }

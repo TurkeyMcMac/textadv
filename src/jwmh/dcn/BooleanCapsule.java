@@ -11,4 +11,9 @@ final class BooleanCapsule extends PrimitiveCapsule<Boolean> {
 		return Boolean.valueOf(contents.trim());
 	}
 	
+	@Override
+	protected boolean matches(Object anObject) {
+		return anObject instanceof Boolean;
+	}
+	
 }

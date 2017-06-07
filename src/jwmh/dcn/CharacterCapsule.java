@@ -15,5 +15,10 @@ final class CharacterCapsule extends PrimitiveCapsule<Character> {
 		}
 		return contents.charAt(0);
 	}
-
+	
+	@Override
+	protected boolean matches(Object anObject) {
+		return anObject instanceof Character;
+	}
+	
 }

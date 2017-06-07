@@ -1,6 +1,6 @@
 package jwmh.dcn;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,6 +25,8 @@ public final class Capsules {
 		new SetterCapsule();
 		new StringCapsule();
 	}
+	
+	public final static String SUFFIX = ".dcn";
 	
 	protected static Map<String, Capsule<?>> capsuleIds = new HashMap<>();
 	
@@ -53,7 +55,7 @@ public final class Capsules {
 	}
 	
 	public static Object readFile(String path, String capsuleId) throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(path + ".dcn"));
+		byte[] encoded = Files.readAllBytes(Paths.get(path + SUFFIX));
 		return read(new String(encoded, StandardCharsets.UTF_8), capsuleId);
 	}
 	
@@ -65,6 +67,21 @@ public final class Capsules {
 	@SuppressWarnings("unchecked")
 	public static List<Object> readListFile(String path) throws IOException {
 		return (List<Object>)readFile(path, "list");
+	}
+	
+	public static String write(Object anObject) {
+		return Capsule.doStringify(anObject);
+	}
+	
+	public static void writeFile(Object anObject, String path) throws IOException {
+		String fileText = "`This file has been auto-generated.`\n";
+		String stringified = write(anObject);
+		stringified = stringified.substring(1, stringified.length() - 1);
+		fileText += stringified;
+			Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(path + SUFFIX), "utf-8"));
+			writer.write(fileText);
+			writer.close();
 	}
 	
 	//for testing:

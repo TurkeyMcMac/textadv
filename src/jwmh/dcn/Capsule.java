@@ -1,6 +1,9 @@
 package jwmh.dcn;
 
 import java.util.Map;
+
+import jwmh.dcn.exceptions.UnparseableCapsuleException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -33,7 +36,20 @@ abstract class Capsule<T> {
 	protected static Map<Character, Capsule<?>> capsuleStarts = new HashMap<>();
 	static List<Capsule<?>>  capsules = new ArrayList<>();
 	
+	static String doStringify(Object anObject) {
+		for (Capsule<?> c : capsules) {
+			if (c.matches(anObject)) {
+				return c.stringify(anObject);
+			}
+		}
+		throw new UnparseableCapsuleException(anObject.toString());
+	}
+	
 	protected abstract ValueEnd evaluate(String capsule);
+	
+	protected abstract String stringify(Object anObject);
+	
+	protected abstract boolean matches(Object anObject);
 	
 	//a data structure containing the evaluated contents of a capsule and where in the string it ends
 	protected final class ValueEnd {

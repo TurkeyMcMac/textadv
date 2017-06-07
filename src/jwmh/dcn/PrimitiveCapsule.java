@@ -24,4 +24,10 @@ abstract class PrimitiveCapsule<T> extends Capsule<T> {
 		return new ValueEnd(parseContents(contents), terminator);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected String stringify(Object anObject) {
+		return START + ((T)anObject).toString() + FINISH;
+	}
+	
 }

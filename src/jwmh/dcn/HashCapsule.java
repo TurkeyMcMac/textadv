@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-final class HashCapsule extends CollectiveCapsule<Map<?, ?>> {
+final class HashCapsule extends WritableCollectiveCapsule<Map<?, ?>> {
 
 	public HashCapsule() {
 		super('{', '}', null);
@@ -28,5 +28,25 @@ final class HashCapsule extends CollectiveCapsule<Map<?, ?>> {
 		}
 		return hash;
 	}
+	
+	@Override
+	protected boolean matches(Object anObject) {
+		return anObject instanceof Map;
+	}
 
+	@Override
+	protected boolean checkEmpty(Object anObject) {
+		return ((Map<?, ?>)anObject).isEmpty();
+	}
+
+	@Override
+	protected String stringifyItems(Object anObject) {
+		String stringified = new String();
+		for (Object o : ((Map<?, ?>)anObject).keySet()) {
+			stringified += WritableCollectiveCapsule.tabs + Capsule.doStringify(o);
+			stringified += ' ' + Capsule.doStringify(((Map<?, ?>)anObject).get(o)) + '\n';
+		}
+		return stringified;
+	}
+	
 }

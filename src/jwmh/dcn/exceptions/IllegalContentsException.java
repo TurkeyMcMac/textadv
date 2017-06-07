@@ -2,9 +2,6 @@ package jwmh.dcn.exceptions;
 
 public class IllegalContentsException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3333470327076024768L;
 	
 	public IllegalContentsException() {}

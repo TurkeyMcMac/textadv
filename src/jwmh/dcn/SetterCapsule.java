@@ -20,4 +20,14 @@ final class SetterCapsule extends CollectiveCapsule<AbstractMap.SimpleEntry<?, ?
 		return var;
 	}
 
+	@Override
+	protected String stringify(Object anObject) {
+		return null;
+	}
+
+	@Override
+	protected boolean matches(Object anObject) {
+		return false;
+	}
+	
 }

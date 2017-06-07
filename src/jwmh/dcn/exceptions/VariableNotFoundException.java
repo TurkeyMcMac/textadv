@@ -2,6 +2,9 @@ package jwmh.dcn.exceptions;
 
 public class VariableNotFoundException extends IllegalContentsException {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -4718520319182988963L;
 
 	public VariableNotFoundException() {}

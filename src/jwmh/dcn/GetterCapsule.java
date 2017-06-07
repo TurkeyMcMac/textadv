@@ -18,4 +18,14 @@ final class GetterCapsule extends CollectiveCapsule<Object> {
 		return valueList.get(0);
 	}
 	
+	@Override
+	protected String stringify(Object anObject) {
+		return null;
+	}
+
+	@Override
+	protected boolean matches(Object anObject) {
+		return false;
+	}
+	
 }

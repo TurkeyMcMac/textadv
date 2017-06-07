@@ -10,5 +10,10 @@ final class FloatCapsule extends PrimitiveCapsule<Float> {
 	protected Float parseContents(String contents) {
 		return Float.parseFloat(contents.trim());
 	}
-
+	
+	@Override
+	protected boolean matches(Object anObject) {
+		return anObject instanceof Float;
+	}
+	
 }
