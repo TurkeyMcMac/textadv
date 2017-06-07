@@ -74,14 +74,24 @@ public final class Capsules {
 	}
 	
 	public static void writeFile(Object anObject, String path) throws IOException {
-		String fileText = "`This file has been auto-generated.`\n";
+		String notice = "`This file has been auto-generated.`\n";
 		String stringified = write(anObject);
 		stringified = stringified.substring(1, stringified.length() - 1);
-		fileText += stringified;
-			Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(path + SUFFIX), "utf-8"));
-			writer.write(fileText);
-			writer.close();
+		Writer writer = new BufferedWriter(new OutputStreamWriter(
+			new FileOutputStream(path + SUFFIX), "utf-8"));
+		writer.write(notice);
+		BufferedReader reader = new BufferedReader(new StringReader(stringified));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			String toBeWritten;
+			if (line.length() > 0 && line.charAt(0) == '\t') {
+				toBeWritten = line.substring(1);
+			} else {
+				toBeWritten = line;
+			}
+			writer.write(toBeWritten + '\n');
+		}
+		writer.close();
 	}
 	
 	//for testing:
