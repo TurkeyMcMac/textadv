@@ -22,13 +22,16 @@ public class BasicUserInterface extends UserInterface<Void> {
 	public static final String SAVES = "src/saves/";
 	
 	public static void save() {
+		System.out.println("Saving world...");
 		try {
 			ObjectOutputStream saveData = new ObjectOutputStream(
 											new FileOutputStream(
 												new File(location + "world")));
+			System.out.println("Writing world...");
 			saveData.writeObject(Main.world);
 			saveData.writeObject(Faction.getAll());
 			saveData.close();
+			System.out.println("Writing factions...");
 			Faction.writeAll(location + "factions");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -37,18 +40,22 @@ public class BasicUserInterface extends UserInterface<Void> {
 	
 	@SuppressWarnings("unchecked")
 	public static Grid load(String name) {
+		System.out.println("Loading save file...");
 		location = SAVES + name + '/';
 		try {
 			ObjectInputStream saveData = new ObjectInputStream(
 											new FileInputStream(
 												new File(location + "world")));
+			System.out.println("Reading world...");
 			Grid world = (Grid)saveData.readObject();
+			System.out.println("Reading world...");
 			Faction.setAll((Map<String, Faction>)saveData.readObject());
 			Faction.loadAll(location + "factions");
 			saveData.close();
 			return world;
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Save file not found.");
+			System.exit(86467456);
 		}
 		return null;
 	}
@@ -60,11 +67,15 @@ public class BasicUserInterface extends UserInterface<Void> {
 				.setArgNames("world name")
 				.setInfo("Create a new world.")
 				.setEffect((String[] args) -> {
+					System.out.println("Creating new world...");
 					Main.world = new Grid(100, 100, Tile.empty());
+					System.out.println("Loading factions...");
 					Faction.loadAll("src/resources/factions");
+					System.out.println("Building world...");
 					Main.buildWorld();
 					Main.playerUI = new PlayingUserInterface(Main.world);
 					location = SAVES + args[1] + '/';
+					System.out.println("Creating save directory");
 					new File(location).mkdir();
 					return null;
 				}),
@@ -78,7 +89,7 @@ public class BasicUserInterface extends UserInterface<Void> {
 				}),
 			new Command<Void>("-h", "--help")
 				.setArgNames()
-				.setInfo("List all commands.")
+				.setInfo("List all options.")
 				.setEffect((String[] args) -> {
 					System.out.println(commands);
 					System.exit(0);
