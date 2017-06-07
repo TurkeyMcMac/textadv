@@ -2,7 +2,7 @@ package jwmh.dcn;
 
 import java.util.Map;
 
-import jwmh.dcn.exceptions.UnparseableCapsuleException;
+import jwmh.dcn.exceptions.NoCorrespondingCapsuleException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +42,7 @@ abstract class Capsule<T> {
 				return c.stringify(anObject);
 			}
 		}
-		throw new UnparseableCapsuleException(anObject.toString());
+		throw new NoCorrespondingCapsuleException(anObject.toString());
 	}
 	
 	protected abstract ValueEnd evaluate(String capsule);
