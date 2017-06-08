@@ -138,7 +138,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							grid.loadPlayer(loadX, loadY);
 							if (player.pickUp((Item)found)) {
 								grid.update();
-								return commands.run("self") + "\nYou pick up " + args[1] + '.';
+								return commands.run("self") + "\nYou pick up " + found.getName() + '.';
 							} else {
 								return "That item is too heavy.";
 							}
@@ -155,7 +155,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (found != null) {
 						player.dropOff(found);
 						grid.update();
-						return commands.run("self") + "\nYou drop " + args[1] + '.';
+						return commands.run("self") + "\nYou drop " + found.getName() + '.';
 					} else {
 						return noItem;
 					}
@@ -170,9 +170,10 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					} catch (NumberFormatException e) {
 						return "An integer is required as the second argument.";
 					}
+					Item found = null;
 					int number = 0;
 					for (int i = 0; i < times; i++) {
-						Item found = (Item)findByName(args[1], player.getInventory());
+						found = (Item)findByName(args[1], player.getInventory());
 						if (found != null) {
 							player.dropOff(found);
 							number++;
@@ -181,7 +182,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (number > 0) {
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou drop " + number + " of " + args[1] + '.';
+						return commands.run("self") + "\nYou drop " + number + " of " + found.getName() + '.';
 					} else {
 						return noItem;
 					}
@@ -196,7 +197,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wield((Tool<?>)found)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return commands.run("self") + "\nYou wield " + args[1] + '.';
+								return commands.run("self") + "\nYou wield " + found.getName() + '.';
 							}
 						}
 					}
@@ -211,7 +212,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwield((Tool<?>)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou unwield " + args[1] + '.';
+						return commands.run("self") + "\nYou unwield " + found.getName() + '.';
 					}
 					return noTool;
 				}),
@@ -248,7 +249,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wear((Armor)found, direction)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return commands.run("self") + "\nYou wear " + args[1] + '.';
+								return commands.run("self") + "\nYou wear " + found.getName() + '.';
 							}
 						}
 					}
@@ -263,7 +264,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwear((Armor)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou unwear " + args[1] + '.';
+						return commands.run("self") + "\nYou unwear " + found.getName() + '.';
 					}
 					return noArmr;
 				}),
@@ -378,7 +379,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 	
 	private static Describable findByName(String name, Collection<? extends Describable> list) {
 		for (Describable i : list) {
-			if (i.getName().equals(name)) {
+			if (i.getName().toLowerCase().equals(name.toLowerCase())) {
 				return i;
 			}
 		}
@@ -388,7 +389,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 	private static List<Describable> findAllByName(String name, Collection<? extends Describable> list) {
 		List<Describable> foundList = new ArrayList<>();
 		for (Describable i : list) {
-			if (i.getName().equals(name)) {
+			if (i.getName().toLowerCase().equals(name.toLowerCase())) {
 				foundList.add(i);
 			}
 		}
