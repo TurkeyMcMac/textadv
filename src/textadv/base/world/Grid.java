@@ -100,7 +100,7 @@ public class Grid implements Serializable {
 	}
 	
 	public String draw() {
-		String map = new String();
+		String map = "";
 		int refLine = loaded.get(0).getY();
 		for (Tile t : loaded) {
 			char icon = t.getGround().getIcon();

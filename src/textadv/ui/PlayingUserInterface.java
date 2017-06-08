@@ -313,14 +313,14 @@ public final class PlayingUserInterface extends UserInterface<String> {
 				.setEffect((String[] args) -> {
 					BasicUserInterface.save();
 					System.exit(0);
-					return new String();
+					return "";
 				}),
 			new Command<String>("exit!")
 				.setArgNames()
 				.setInfo("Exit the game without saving.")
 				.setEffect((String[] args) -> {
 					System.exit(0);
-					return new String();
+					return "";
 				})
 		);
 		this.grid = grid;
