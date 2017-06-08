@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 
 import jwmh.commands.*;
-import jwmh.misc.Pair;
 
 public final class PlayingUserInterface extends UserInterface<String> {
 	
@@ -105,9 +104,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 			new Command<String>("self")
 				.setArgNames()
 				.setInfo("Get info about oneself.")
-				.setEffect((String[] args) -> {
-					Pair<Integer, Integer> weight = player.getWeights();
-					return
+				.setEffect((String[] args) -> 
 						Describable.nameList(
 							"Inventory:", 
 							player.getInventory())
@@ -123,10 +120,10 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					  + Describable.nameList(
 							"Attacks:",
 							player.getAttacks().values())
-					  + "\n\nWeight: " + weight.start + '/' + weight.end
-					  + "\n\nHealth: " + player.getHealth() + '/' + player.getMaxHealth();
+					  + "\n\nWeight: " + player.getWeights() + '/' + player.getMaxWeights()
+					  + "\n\nHealth: " + player.getHealth() + '/' + player.getMaxHealth()
 						
-					}),
+					),
 			new InGameCommand<String>("pick", controller)
 				.setArgNames("item name")
 				.setInfo("Pick up an item from one's vicinity.")
@@ -141,9 +138,9 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							grid.loadPlayer(loadX, loadY);
 							if (player.pickUp((Item)found)) {
 								grid.update();
-								return grid.draw() + "\nYou pick up " + args[1] + '.';
+								return commands.run("self") + "\nYou pick up " + args[1] + '.';
 							} else {
-								return grid.draw() + "\nThat item is too heavy.";
+								return "That item is too heavy.";
 							}
 						}
 					}
@@ -158,7 +155,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (found != null) {
 						player.dropOff(found);
 						grid.update();
-						return grid.draw() + "\nYou drop " + args[1] + '.';
+						return commands.run("self") + "\nYou drop " + args[1] + '.';
 					} else {
 						return noItem;
 					}
@@ -184,7 +181,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (number > 0) {
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return grid.draw() + "\nYou drop " + number + " of " + args[1] + '.';
+						return commands.run("self") + "\nYou drop " + number + " of " + args[1] + '.';
 					} else {
 						return noItem;
 					}
@@ -199,7 +196,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wield((Tool<?>)found)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return grid.draw() + '\n' + "You wield " + args[1] + '.';
+								return commands.run("self") + "\nYou wield " + args[1] + '.';
 							}
 						}
 					}
@@ -214,7 +211,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwield((Tool<?>)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return grid.draw() + "\nYou unwield " + args[1] + '.';
+						return commands.run("self") + "\nYou unwield " + args[1] + '.';
 					}
 					return noTool;
 				}),
@@ -229,7 +226,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 								player.attack((Healthy)p, args[1]);
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return grid.draw() + "\nYou attack " + p.getName() + '.';
+								return commands.run("self") + "\nYou attack " + p.getName() + '.';
 							}
 						}
 						return("No such attackable being.");
@@ -251,7 +248,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wear((Armor)found, direction)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return grid.draw() + '\n' + "You wear " + args[1] + '.';
+								return commands.run("self") + "\nYou wear " + args[1] + '.';
 							}
 						}
 					}
@@ -266,7 +263,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwear((Armor)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return grid.draw() + "\nYou unwear " + args[1] + '.';
+						return commands.run("self") + "\nYou unwear " + args[1] + '.';
 					}
 					return noArmr;
 				}),

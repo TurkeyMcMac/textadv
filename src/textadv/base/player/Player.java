@@ -3,8 +3,6 @@ package textadv.base.player;
 import java.util.Map;
 import java.util.Set;
 
-import jwmh.misc.Pair;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,8 +119,12 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		}
 	}
 	
-	public Pair<Integer, Integer> getWeights() {
-		return new Pair<>(nowWeight, maxWeight);
+	public Integer getWeights() {
+		return nowWeight;
+	}
+	
+	public Integer getMaxWeights() {
+		return maxWeight;
 	}
 	
 	public List<Item> getInventory() {
