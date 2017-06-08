@@ -2,6 +2,13 @@ package jwmh.dcn;
 
 import jwmh.dcn.exceptions.IllegalContentsException;
 
+/**
+ * This capsule type contains
+ * character values.
+ * 
+ * @author jude
+ *
+ */
 final class CharacterCapsule extends PrimitiveCapsule<Character> {
 
 	protected CharacterCapsule() {

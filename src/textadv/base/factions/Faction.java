@@ -65,7 +65,7 @@ public class Faction implements Describable, Serializable {
 			factionInfos.add(factionInfo);
 		}
 		try {
-			Capsules.writeFile(factionInfos, path);
+			Capsules.writeFile(path, factionInfos);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

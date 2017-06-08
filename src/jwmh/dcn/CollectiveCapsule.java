@@ -12,14 +12,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class is the parent
+ * of all capsule types which
+ * contain other capsules.
+ * <p>
+ * Note: the starts and finishes
+ * of collective capsules cannot
+ * be the same
+ * 
+ * @author jude
+ *
+ * @param <T> the type contained in a capsule
+ */
 abstract class CollectiveCapsule<T> extends Capsule<T> {
 	
+	/**
+	 * The map from variable keys to variable values
+	 */
 	private static final Map<Object, Object> VARS = new HashMap<>();
 	
 	protected CollectiveCapsule(Character start, Character finish, String selector) {
 		super(start, finish, selector);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	protected final ValueEnd evaluate(String capsule) {
 		//list of variables marked as local
@@ -69,6 +86,14 @@ abstract class CollectiveCapsule<T> extends Capsule<T> {
 	    return new ValueEnd(processList((List<Object>)valueList), terminator);
 	}
 	
+	/**
+	 * Processes the list of values
+	 * collected into a different
+	 * data structure.
+	 * 
+	 * @param valueList the list of values
+	 * @return the new data structure
+	 */
 	protected abstract T processList(List<Object> valueList);
 	
 }

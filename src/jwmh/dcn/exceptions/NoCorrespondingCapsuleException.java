@@ -1,5 +1,14 @@
 package jwmh.dcn.exceptions;
 
+/**
+ * This exception is thrown when
+ * an object cannot be written
+ * because there is no capsule
+ * corresponding to its type.
+ * 
+ * @author jude
+ *
+ */
 public class NoCorrespondingCapsuleException extends RuntimeException {
 
 	private static final long serialVersionUID = -7047221498461127635L;

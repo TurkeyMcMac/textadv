@@ -1,10 +1,16 @@
 package jwmh.dcn.exceptions;
 
+/**
+ * This exception is thrown when
+ * a variable referenced in data
+ * capsule notation does not
+ * exist.
+ * 
+ * @author jude
+ *
+ */
 public class VariableNotFoundException extends IllegalContentsException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4718520319182988963L;
 
 	public VariableNotFoundException() {}

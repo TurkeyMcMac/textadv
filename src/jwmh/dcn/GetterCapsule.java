@@ -4,6 +4,15 @@ import java.util.List;
 
 import jwmh.dcn.exceptions.IllegalContentsException;
 
+/**
+ * This capsule type is
+ * evaluated as the value
+ * of the variable that it
+ * references by name.
+ * 
+ * @author jude
+ *
+ */
 final class GetterCapsule extends CollectiveCapsule<Object> {
 
 	public GetterCapsule() {

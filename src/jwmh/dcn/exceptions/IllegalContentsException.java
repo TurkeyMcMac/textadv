@@ -1,5 +1,13 @@
 package jwmh.dcn.exceptions;
 
+/**
+ * This exception is thrown when the
+ * contents of a capsule is in an
+ * unknown format.
+ * 
+ * @author jude
+ * 
+ */
 public class IllegalContentsException extends RuntimeException {
 
 	private static final long serialVersionUID = 3333470327076024768L;

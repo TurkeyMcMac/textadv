@@ -1,5 +1,12 @@
 package jwmh.dcn;
 
+/**
+ * This capsule type contains
+ * boolean values.
+ * 
+ * @author jude
+ *
+ */
 final class BooleanCapsule extends PrimitiveCapsule<Boolean> {
 
 	protected BooleanCapsule() {

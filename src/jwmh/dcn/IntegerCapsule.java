@@ -1,5 +1,12 @@
 package jwmh.dcn;
 
+/**
+ * This capsule type contains
+ * integer values.
+ * 
+ * @author jude
+ *
+ */
 final class IntegerCapsule extends PrimitiveCapsule<Integer> {
 
 	protected IntegerCapsule() {

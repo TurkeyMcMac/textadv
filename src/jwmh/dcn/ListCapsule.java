@@ -2,12 +2,22 @@ package jwmh.dcn;
 
 import java.util.List;
 
+/**
+ * This capsule type holds
+ * lists of values.
+ * 
+ * @author jude
+ *
+ */
 final class ListCapsule extends WritableCollectiveCapsule<List<?>> {
 
 	protected ListCapsule() {
 		super('[', ']', null);
 	}
 	
+	/*
+	 * returns the same list that was passed in
+	 * */
 	@Override
 	protected List<Object> processList(List<Object> valueList) {
 		return valueList;

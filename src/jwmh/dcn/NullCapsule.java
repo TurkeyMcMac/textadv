@@ -1,5 +1,12 @@
 package jwmh.dcn;
 
+/**
+ * This capsule type always
+ * holds the value null.
+ * 
+ * @author jude
+ *
+ */
 final class NullCapsule extends EmptyCapsule {
 
 	public NullCapsule() {

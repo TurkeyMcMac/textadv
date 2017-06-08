@@ -8,6 +8,10 @@ import textadv.base.outfits.Tool;
 
 public interface Weapon extends Tool<WeaponWielder> {
 	
+	/**
+	 * Returns all of this weapon's attacks.
+	 * @return the list attacks.
+	 */
 	public List<DamageEffect> getAttacks();
 	
 	@Override

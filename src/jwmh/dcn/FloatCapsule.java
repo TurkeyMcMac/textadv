@@ -1,5 +1,12 @@
 package jwmh.dcn;
 
+/**
+ * This capsule type contains
+ * floating point values.
+ * 
+ * @author jude
+ *
+ */
 final class FloatCapsule extends PrimitiveCapsule<Float> {
 
 	public FloatCapsule() {

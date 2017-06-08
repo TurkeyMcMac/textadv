@@ -1,5 +1,13 @@
 package jwmh.dcn;
 
+/**
+ * This class is the parent
+ * of all capsules whose
+ * values are always null.
+ * 
+ * @author jude
+ *
+ */
 abstract class EmptyCapsule extends Capsule<Object> {
 
 	public EmptyCapsule(Character start, Character finish, String selector) {
