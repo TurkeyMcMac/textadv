@@ -6,7 +6,7 @@ abstract class WritableCollectiveCapsule<T> extends CollectiveCapsule<T> {
 		super(start, finish, selector);
 	}
 	
-	protected static String tabs = new String();
+	protected static String tabs = "";
 	
 	@Override
 	protected String stringify(Object anObject) {

@@ -25,7 +25,7 @@ final class ListCapsule extends WritableCollectiveCapsule<List<?>> {
 
 	@Override
 	protected String stringifyItems(Object anObject) {
-		String stringified = new String();
+		String stringified = "";
 		for (Object o : (List<?>)anObject) {
 			stringified += WritableCollectiveCapsule.tabs + Capsule.doStringify(o) + '\n';
 		}

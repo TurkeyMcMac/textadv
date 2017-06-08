@@ -41,7 +41,7 @@ final class HashCapsule extends WritableCollectiveCapsule<Map<?, ?>> {
 
 	@Override
 	protected String stringifyItems(Object anObject) {
-		String stringified = new String();
+		String stringified = "";
 		for (Object o : ((Map<?, ?>)anObject).keySet()) {
 			stringified += WritableCollectiveCapsule.tabs + Capsule.doStringify(o);
 			stringified += ' ' + Capsule.doStringify(((Map<?, ?>)anObject).get(o)) + '\n';
