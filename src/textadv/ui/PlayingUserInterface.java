@@ -102,16 +102,29 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							noItem :
 							found.toString();
 				}),
-			new Command<String>("inv")
+			new Command<String>("self")
 				.setArgNames()
-				.setInfo("List the contents of one's inventory.")
+				.setInfo("Get info about oneself.")
 				.setEffect((String[] args) -> {
 					Pair<Integer, Integer> weight = player.getWeights();
 					return
-					Describable.nameList(
-						"Inventory:", 
-						player.getInventory())
-					  + "\nWeight: " + weight.start + '/' + weight.end;
+						Describable.nameList(
+							"Inventory:", 
+							player.getInventory())
+					  + "\n\n"
+					  + Describable.nameList(
+							"Wearing:",
+							player.getArmors())
+					  + "\n\n"
+					  + Describable.nameList(
+							"Wielding:",
+							player.getWielded())
+					  + "\n\n"
+					  + Describable.nameList(
+							"Attacks:",
+							player.getAttacks().values())
+					  + "\n\nWeight: " + weight.start + '/' + weight.end
+					  + "\n\nHealth: " + player.getHealth() + '/' + player.getMaxHealth();
 						
 					}),
 			new InGameCommand<String>("pick", controller)

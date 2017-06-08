@@ -28,7 +28,8 @@ public interface Describable {
 		}
 		String stringified = label;
 		for (String n : occurrence.keySet()) {
-			stringified += "\n\t" + n + " x" + occurrence.get(n);
+			int times = occurrence.get(n);
+			stringified += "\n\t" + n + (times > 1 ? " x" + times : "");
 		}
 		return stringified;
 	}

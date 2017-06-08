@@ -22,6 +22,10 @@ public final class Main {
 		world.drop(player, 10, 10);
 		world.setPlayer(player);
 		world.drop(new Goblin(CarDir.NORTH), 6, 6);
+		world.drop(new Hat(), 7, 8);
+		world.drop(new Hat(), 9, 8);
+		world.drop(new Stick(), 10, 9);
+		world.drop(new Stick(), 9, 10);
 	}
 	
 	public static void main(String[] args) {

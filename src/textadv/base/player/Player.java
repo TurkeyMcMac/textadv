@@ -141,7 +141,11 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	public DamageEffect getAttack(String name) {
 		return attacks.get(name);
 	}
-
+	
+	public Map<String, DamageEffect> getAttacks() {
+		return attacks;
+	}
+	
 	@Override
 	public void addAttack(DamageEffect attack) {
 		attacks.put(attack.getName(), attack);
@@ -179,7 +183,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 
 	@Override
 	public boolean wear(Armor armor, RelDir direction) {
-		if (inventory.contains(armor)) {
+		if (inventory.contains(armor) && !armors.containsKey(armor)) {
 			armor.wear(this);
 			armors.put(armor, direction);
 			shields.replace(direction, shields.get(direction) + armor.getArmor());
