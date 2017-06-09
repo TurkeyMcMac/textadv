@@ -9,15 +9,11 @@ import jwmh.misc.Pair;
 
 public class CommandSet<T> {
 	
-	Map<Pair<String, Integer>, Command<T>> cmdMap = new HashMap<>();
+	protected Map<Pair<String, Integer>, Command<T>> cmdMap = new HashMap<>();
 	
 	@SafeVarargs
 	public CommandSet(Command<T> ... cmds) {
-		for (Command<T> c : cmds) {
-			for (String n : c.names) {
-				cmdMap.put(new Pair<>(n, c.argNames.length), c);
-			}
-		}
+		addCmds(cmds);
 	}
 	
 	public T run(String ... args) throws UnknownCommandException {
@@ -25,6 +21,19 @@ public class CommandSet<T> {
 			return cmdMap.get(new Pair<>(args[0], args.length - 1)).run(args);
 		} catch (NullPointerException e) {
 			throw new UnknownCommandException();
+		}
+	}
+	
+	public T runFrom(String givenCmd) throws UnknownCommandException {
+		return run(givenCmd.trim().split("\\s+"));
+	}
+	
+	@SafeVarargs
+	public final void addCmds(Command<T> ... cmds) {
+		for (Command<T> c : cmds) {
+			for (String n : c.names) {
+				cmdMap.put(new Pair<>(n, c.argNames.length), c);
+			}
 		}
 	}
 	

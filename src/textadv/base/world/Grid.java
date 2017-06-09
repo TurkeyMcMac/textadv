@@ -2,11 +2,21 @@
 package textadv.base.world;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import jwmh.commands.*;
+import jwmh.dcn.*;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import textadv.base.directions.CarDir;
 import textadv.base.outfits.Solid;
 import textadv.base.player.Player;
+import textadv.base.population.Goblin;
 
 public class Grid implements Serializable {
 
@@ -162,5 +172,34 @@ public class Grid implements Serializable {
 	public Ground shuffle(Ground ground, int targX, int targY) {
 		return ground.warp(getTile(targX, targY));
 	}
-
+	
+	@SuppressWarnings("serial")
+	private Map<String, Supplier<Pile>> pileTable = new HashMap<String, Supplier<Pile>>() {{
+		put("player", () -> {
+			Player player = new Player(CarDir.NORTH);
+			setPlayer(player);
+			return player;
+		});
+		put("goblin", () -> new Goblin(CarDir.NORTH));
+	}};
+	
+	private CommandSet<Void> buildCmds = new CommandSet<>(
+		new Command<Void>("drop")
+			.setArgNames("name", "x", "y")
+			.setEffect((String[] args) -> {
+				Pile pile = pileTable.get(args[1]).get();
+				if (pile != null) {
+					drop(pile, Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+				}
+				return null;
+			})
+	);
+	
+	public void buildFrom(String path) throws IOException {
+		List<Object> orders = Capsules.readListFile(path);
+		for (Object o : orders) {
+			buildCmds.runFrom((String)o);
+		}
+	}
+	
 }

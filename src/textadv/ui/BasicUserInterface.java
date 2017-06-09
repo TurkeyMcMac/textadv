@@ -15,7 +15,7 @@ import textadv.base.world.Grid;
 import textadv.base.world.Tile;
 import textadv.main.Main;
 
-public class BasicUserInterface extends UserInterface<Void> {
+public class BasicUserInterface extends CommandSet<Void> {
 	
 	public static String location;
 
@@ -61,8 +61,8 @@ public class BasicUserInterface extends UserInterface<Void> {
 	}
 	
 	public BasicUserInterface() {
-		super(null);
-		commands = new CommandSet<Void>(
+		super();
+		addCmds(
 				new Command<Void>("-n", "--new")
 				.setArgNames("world name")
 				.setInfo("Create a new world.")
@@ -72,7 +72,11 @@ public class BasicUserInterface extends UserInterface<Void> {
 					System.out.println("Loading factions...");
 					Faction.loadAll("src/resources/factions");
 					System.out.println("Building world...");
-					Main.buildWorld();
+					try {
+						Main.world.buildFrom("src/resources/world");
+					} catch (IOException e) {
+						e.printStackTrace();
+					};
 					Main.playerUI = new PlayingUserInterface(Main.world);
 					location = SAVES + args[1] + '/';
 					System.out.println("Creating save directory");
@@ -91,7 +95,7 @@ public class BasicUserInterface extends UserInterface<Void> {
 				.setArgNames()
 				.setInfo("List all options.")
 				.setEffect((String[] args) -> {
-					System.out.println(commands);
+					System.out.println(this);
 					System.exit(0);
 					return null;
 				})

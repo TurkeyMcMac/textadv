@@ -20,7 +20,7 @@ import java.util.List;
 
 import jwmh.commands.*;
 
-public final class PlayingUserInterface extends UserInterface<String> {
+public final class PlayingUserInterface extends CommandSet<String> {
 	
 	private static int loadX = 10,
 					   loadY = 5;
@@ -30,21 +30,21 @@ public final class PlayingUserInterface extends UserInterface<String> {
 	PlayerController controller;
 	
 	public PlayingUserInterface(Grid grid) {
-		super(null);
+		super();
 		this.grid = grid;
 		player = grid.getPlayer();
 		controller = player.getController();
-		commands = new CommandSet<String>(
+		addCmds(
 			new Command<String>("welcome")
 				.setArgNames()
 				.setInfo("A welcome message.")
 				.setEffect((String[] args) -> "Welcome to textadv!\n\n"
-											+ commands.getString("help", 0) + "\n\n"
-											+ commands.getString("help", 2)),
+											+ getString("help", 0) + "\n\n"
+											+ getString("help", 2)),
 			new Command<String>("help")
 				.setArgNames()
 				.setInfo("List all commands.")
-				.setEffect((String[] args) -> commands.toString()),
+				.setEffect((String[] args) -> toString()),
 			new Command<String>("help")
 				.setArgNames("command name", "number of arguments")
 				.setInfo("Describe one command.")
@@ -55,7 +55,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					} catch (NumberFormatException e) {
 						return "Requires a number of arguments";
 					}
-					return commands.getString(args[1], argNum);
+					return getString(args[1], argNum);
 				}),
 			new InGameCommand<String>("step", controller)
 				.setArgNames("cardinal direction")
@@ -138,7 +138,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							grid.loadPlayer(loadX, loadY);
 							if (player.pickUp((Item)found)) {
 								grid.update();
-								return commands.run("self") + "\nYou pick up " + found.getName() + '.';
+								return run("self") + "\nYou pick up " + found.getName() + '.';
 							} else {
 								return "That item is too heavy.";
 							}
@@ -155,7 +155,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (found != null) {
 						player.dropOff(found);
 						grid.update();
-						return commands.run("self") + "\nYou drop " + found.getName() + '.';
+						return run("self") + "\nYou drop " + found.getName() + '.';
 					} else {
 						return noItem;
 					}
@@ -182,7 +182,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 					if (number > 0) {
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou drop " + number + " of " + found.getName() + '.';
+						return run("self") + "\nYou drop " + number + " of " + found.getName() + '.';
 					} else {
 						return noItem;
 					}
@@ -197,7 +197,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wield((Tool<?>)found)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return commands.run("self") + "\nYou wield " + found.getName() + '.';
+								return run("self") + "\nYou wield " + found.getName() + '.';
 							}
 						}
 					}
@@ -212,7 +212,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwield((Tool<?>)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou unwield " + found.getName() + '.';
+						return run("self") + "\nYou unwield " + found.getName() + '.';
 					}
 					return noTool;
 				}),
@@ -227,7 +227,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 								player.attack((Healthy)p, args[1]);
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return commands.run("self") + "\nYou attack " + p.getName() + '.';
+								return run("self") + "\nYou attack " + p.getName() + '.';
 							}
 						}
 						return("No such attackable being.");
@@ -249,7 +249,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 							if (player.wear((Armor)found, direction)) {
 								grid.loadPlayer(loadX, loadY);
 								grid.update();
-								return commands.run("self") + "\nYou wear " + found.getName() + '.';
+								return run("self") + "\nYou wear " + found.getName() + '.';
 							}
 						}
 					}
@@ -264,7 +264,7 @@ public final class PlayingUserInterface extends UserInterface<String> {
 						player.unwear((Armor)found);
 						grid.loadPlayer(loadX, loadY);
 						grid.update();
-						return commands.run("self") + "\nYou unwear " + found.getName() + '.';
+						return run("self") + "\nYou unwear " + found.getName() + '.';
 					}
 					return noArmr;
 				}),
@@ -406,9 +406,9 @@ public final class PlayingUserInterface extends UserInterface<String> {
 		};
 	}
 	
-	public String read(String givenCmd) {
+	public String tryRunFrom(String givenCmd) {
 		try {
-			return run(givenCmd);
+			return runFrom(givenCmd);
 		} catch (UnknownCommandException e) {
 			return "Unknown command.";
 		}

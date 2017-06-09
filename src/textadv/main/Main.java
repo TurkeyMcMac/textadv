@@ -14,7 +14,7 @@ public final class Main {
 	public static PlayingUserInterface playerUI;
 	
 	private static void screen(String input) {
-		System.out.println("\033c" + playerUI.read(input) + "\n>>");
+		System.out.println("\033c" + playerUI.tryRunFrom(input) + "\n>>");
 	}
 	
 	public static void buildWorld() {
@@ -29,7 +29,7 @@ public final class Main {
 	}
 	
 	public static void main(String[] args) {
-		new BasicUserInterface().runArgs(args);
+		new BasicUserInterface().run(args);
 		screen("welcome");
 		while(true) {
 			screen(System.console().readLine());
