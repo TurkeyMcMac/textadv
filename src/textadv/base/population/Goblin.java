@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import textadv.base.control.ConstantController;
-import textadv.base.damage.DamageEffect;
 import textadv.base.damage.DamageType;
 import textadv.base.directions.CarDir;
 import textadv.base.directions.RelDir;
@@ -54,7 +53,6 @@ public final class Goblin extends Monster implements Talker, Solid, Item {
 				  b.turn(CarDir.directionOf(relativeX, relativeY));
 				  b.step();
 			  }),
-			  new HashMap<String, DamageEffect>(),
 			  new HashMap<DamageType, Integer>() {{
 				  put(DamageType.ACID,	2);
 				  put(DamageType.POISON,2);

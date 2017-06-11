@@ -11,6 +11,7 @@ import java.util.Map;
 import jwmh.commands.Command;
 import jwmh.commands.CommandSet;
 import textadv.base.factions.Faction;
+import textadv.base.resources.Grids;
 import textadv.base.world.Grid;
 import textadv.base.world.Tile;
 import textadv.main.Main;
@@ -73,7 +74,7 @@ public class BasicUserInterface extends CommandSet<Void> {
 					Faction.loadAll("src/resources/factions");
 					System.out.println("Building world...");
 					try {
-						Main.world.buildFrom("src/resources/world");
+						new Grids(Main.world).buildFrom("src/resources/world");
 					} catch (IOException e) {
 						e.printStackTrace();
 					};

@@ -1,5 +1,7 @@
 package jwmh.misc;
 
+import java.io.Serializable;
+
 /**
  * This class simply associated two values.
  * Pairs with the same values are treated
@@ -10,7 +12,9 @@ package jwmh.misc;
  * @param <T> the start type
  * @param <U> the end type
  */
-public class Pair<T, U> {
+public class Pair<T, U> implements Serializable {
+	
+	private static final long serialVersionUID = -8048307872092946405L;
 	
 	public T start;
 	public U end;

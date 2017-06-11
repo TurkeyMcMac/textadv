@@ -16,7 +16,6 @@ public class Monster extends Being implements Healthy, Hostile {
 	
 	private Faction faction;
 	private boolean alive = true;
-	protected Map<String, DamageEffect> attacks;
 	private Map<DamageType, Integer> resistance;
 	protected Map<RelDir, Integer> shields;
 	private int nowHealth;
@@ -31,7 +30,6 @@ public class Monster extends Being implements Healthy, Hostile {
 				   int dodge,
 				   CarDir facing,
 				   Controller<?> controller,
-				   Map<String, DamageEffect> attacks,
 				   Map<DamageType, Integer> resistance,
 				   Map<RelDir, Integer> shields)
 	{
@@ -40,14 +38,13 @@ public class Monster extends Being implements Healthy, Hostile {
 		this.nowHealth = maxHealth;
 		this.maxHealth = maxHealth;
 		this.dodge = dodge;
-		this.attacks = attacks;
 		this.resistance = resistance;
 		this.shields = shields;
 	}
 	
 	@Override
 	public DamageEffect getAttack(String name) {
-		return attacks.get(name);
+		return getAttacks().get(name);
 	}
 
 	@Override
@@ -114,6 +111,12 @@ public class Monster extends Being implements Healthy, Hostile {
 			stringified += "\n\t" + d.toString().toLowerCase() + ": " + shields.get(d);
 		}
 		return stringified;
+	}
+
+	@Override
+	public Map<String, DamageEffect> getAttacks() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

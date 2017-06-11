@@ -2,6 +2,9 @@ package textadv.base.player;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+
+import jwmh.misc.Pair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	private int nowWield = 0;
 	private int maxWield = 2;
 	private Talker listenedTo;
+	private Map<String, Pair<DamageEffect, Integer>> attacks = new HashMap<>();
 	
 	@SuppressWarnings("unchecked")
 	private static final Map<String, Object> RESOURCES = (Map<String, Object>)Things.get("player");
@@ -47,8 +51,6 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	
 	public static final Map<DamageType, Integer> RESISTANCE = new HashMap<>();
 	
-	public static final Map<String, DamageEffect> ATTACKS = new HashMap<>();
-	
 	@SuppressWarnings("serial")
 	public static final Map<RelDir, Integer> SHIELDS = new HashMap<RelDir, Integer>() {{
 		put(RelDir.FORWARD, 2);
@@ -66,9 +68,9 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 			  DODGE,
 			  facing, 
 			  CONTROLLER,
-			  ATTACKS,
 			  RESISTANCE,
 			  SHIELDS);
+		
 		
 	}
 	
@@ -139,23 +141,12 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 		return armors.keySet();
 	}
 	
-	@Override
-	public DamageEffect getAttack(String name) {
-		return attacks.get(name);
-	}
-	
 	public Map<String, DamageEffect> getAttacks() {
-		return attacks;
-	}
-	
-	@Override
-	public void addAttack(DamageEffect attack) {
-		attacks.put(attack.getName(), attack);
-	}
-
-	@Override
-	public void remAttack(DamageEffect attack) {
-		attacks.remove(attack.getName());
+		Map<String, DamageEffect> simpleAttacks = new TreeMap<String, DamageEffect>();
+		for (String n : attacks.keySet()) {
+			simpleAttacks.put(n, attacks.get(n).start);
+		}
+		return simpleAttacks;
 	}
 
 	@Override
@@ -227,6 +218,11 @@ public final class Player extends Monster implements WeaponWielder, ArmorWearer,
 	public void stopListening() {
 		listenedTo.endTalk();
 		listenedTo = null;
+	}
+
+	@Override
+	public Map<String, Pair<DamageEffect, Integer>> getAttacksFull() {
+		return attacks;
 	}
 	
 }
