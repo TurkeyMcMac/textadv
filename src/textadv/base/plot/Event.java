@@ -1,4 +1,4 @@
-package textadv.base.events;
+package textadv.base.plot;
 
 import java.util.function.Predicate;
 

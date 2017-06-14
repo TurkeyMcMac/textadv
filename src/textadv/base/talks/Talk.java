@@ -32,11 +32,11 @@ public class Talk implements Serializable {
 	
 	@Override
 	public String toString() {
-		String stringified = text;
+		StringBuffer stringified = new StringBuffer(text);
 		for (int i = 0; i < resultNames.size(); i++) {
-			stringified += "\n(" + i + ") " + resultNames.get(i);
+			stringified.append("\n(" + i + ") " + resultNames.get(i));
 		}
-		return stringified;
+		return stringified.toString();
 	}
 	
 	public static LinkedHashMap<String, Talk> nexts(Object ... nodes) {

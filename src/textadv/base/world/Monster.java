@@ -97,20 +97,20 @@ public class Monster extends Being implements Healthy, Hostile {
 	
 	@Override
 	public String toString() {
-		String stringified = describe();
-		stringified += "\n" + (alive ? "Alive" : "Corpse");
-		stringified += "\nFaction: " + faction.getName();
-		stringified += "\nHealth: " + nowHealth + "/" + maxHealth;
-		stringified += "\nDodge: " + dodge;
-		stringified += "\nResistance: ";
+		StringBuffer stringified = new StringBuffer(describe());
+		stringified.append("\n" + (alive ? "Alive" : "Corpse"));
+		stringified.append("\nFaction: " + faction.getName());
+		stringified.append("\nHealth: " + nowHealth + "/" + maxHealth);
+		stringified.append("\nDodge: " + dodge);
+		stringified.append("\nResistance: ");
 		for (DamageType d : resistance.keySet()) {
-			stringified += "\n\t" + d.toString().toLowerCase() + ": " + resistance.get(d);
+			stringified.append("\n\t" + d.toString().toLowerCase() + ": " + resistance.get(d));
 		}
-		stringified += "\nShields: ";
+		stringified.append("\nShields: ");
 		for (RelDir d : shields.keySet()) {
-			stringified += "\n\t" + d.toString().toLowerCase() + ": " + shields.get(d);
+			stringified.append("\n\t" + d.toString().toLowerCase() + ": " + shields.get(d));
 		}
-		return stringified;
+		return stringified.toString();
 	}
 
 	@Override

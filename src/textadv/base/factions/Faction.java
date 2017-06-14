@@ -101,17 +101,17 @@ public class Faction implements Describable, Serializable {
 	
 	@Override
 	public String toString() {
-		String stringified = describe()
+		StringBuffer stringified = new StringBuffer(describe()
 				  		+ "\nfriendliness: " + defaultRelationship
-				  		+ "\ncurrent relationships:";
+				  		+ "\ncurrent relationships:");
 		if (!relationships.isEmpty()) {
 			for (Faction f : relationships.keySet()) {
-				stringified += "\n\t" + f.getName() + ": " + relationships.get(f);
+				stringified.append("\n\t" + f.getName() + ": " + relationships.get(f));
 			}
 		} else {
-			stringified += "\n\tnone";
+			stringified.append("\n\tnone");
 		}
-		return stringified;
+		return stringified.toString();
 	}
 	
 	public void teach(Faction faction, int relationship) {

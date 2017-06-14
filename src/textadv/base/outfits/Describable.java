@@ -26,12 +26,12 @@ public interface Describable {
 				occurrence.replace(name, occurred + 1);
 			}
 		}
-		String stringified = label;
+		StringBuffer stringified = new StringBuffer(label);
 		for (String n : occurrence.keySet()) {
 			int times = occurrence.get(n);
-			stringified += "\n\t" + n + (times > 1 ? " x" + times : "");
+			stringified.append("\n\t" + n + (times > 1 ? " x" + times : ""));
 		}
-		return stringified;
+		return stringified.toString();
 	}
 	
 }
