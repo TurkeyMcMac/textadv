@@ -51,8 +51,9 @@ public final class CapsuleReader {
 	 * Because capsules can have a
 	 * value of null, one must iterate
 	 * through a sequence of capsules
-	 * with the whileReading method, or
-	 * if one wants, like this:
+	 * with the {@code whileReading} 
+	 * method, or if one wants, like
+	 * this:
 	 * <pre>
 	 * {@code
 	 * CapsuleReader reader = new CapsuleReader(
@@ -60,12 +61,14 @@ public final class CapsuleReader {
 	 *                                new StringReader("['f' 'o' 'o'] ['b' 'a' 'r']")));
 	 * while (true) {
 	 *     Object read = reader.readCapsule();
-	 *     if (reader.isOpen())
+	 *     if (reader.isReading())
 	 *         doStuffWith(read);
 	 *     else
 	 *         break;
 	 * }
 	 * </pre>
+	 * Both options require the reader
+	 * to be {@code close}'d afterward.
 	 * 
 	 * @return the next capsule in the text being read
 	 * @throws IOException
@@ -114,9 +117,9 @@ public final class CapsuleReader {
 	
 	/**
 	 * 
-	 * @return whether or not the reader is open
+	 * @return whether or not the reader has reached the end
 	 */
-	public boolean isOpen() {
+	public boolean isReading() {
 		return open;
 	}
 	
