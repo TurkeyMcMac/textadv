@@ -3,10 +3,9 @@ package textadv.base.factions;
 import java.util.Map;
 import java.util.TreeMap;
 
-import jwmh.dcn.Capsules;
+import jwmh.dcn.*;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,11 +26,25 @@ public class Faction implements Describable, Serializable {
 	
 	@SuppressWarnings("unchecked")
 	public static void loadAll(String path) {
-		List<Object> factions = null;
+		List<Object> factions = new ArrayList<>();
+		CapsuleReader reader = null;
 		try {
-			factions = Capsules.readListFile(path);
+			reader = new CapsuleReader(
+						 new BufferedReader(
+							 new FileReader(path)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.whileReading((o) -> factions.add(o));
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		for (Object of : factions) {
 			Map<String, Object> f = (Map<String, Object>)of;
@@ -50,7 +63,14 @@ public class Faction implements Describable, Serializable {
 	}
 	
 	public static void writeAll(String path) {
-		List<Map<String, Object>> factionInfos = new ArrayList<>();
+		CapsuleWriter writer = null;
+		try {
+			writer = new CapsuleWriter(
+						 new BufferedWriter(
+							 new FileWriter(path)));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		for (String n : allFactions.keySet()) {
 			Faction faction = allFactions.get(n);
 			Map<String, Object> factionInfo = new LinkedHashMap<>();
@@ -62,10 +82,14 @@ public class Faction implements Describable, Serializable {
 				relsByName.put(f.name, faction.relationships.get(f));
 			}
 			factionInfo.put("relationships", relsByName);
-			factionInfos.add(factionInfo);
+			try {
+				writer.writeCapsule(factionInfo);
+			} catch (NoCorrespondingCapsuleException | IOException e) {
+				e.printStackTrace();
+			}
 		}
 		try {
-			Capsules.writeFile(path, factionInfos);
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

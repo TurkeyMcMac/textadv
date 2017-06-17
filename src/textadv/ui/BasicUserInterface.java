@@ -71,10 +71,10 @@ public class BasicUserInterface extends CommandSet<Void> {
 					System.out.println("Creating new world...");
 					Main.world = new Grid(100, 100, Tile.empty());
 					System.out.println("Loading factions...");
-					Faction.loadAll("src/resources/factions");
+					Faction.loadAll("src/resources/factions.dcn");
 					System.out.println("Building world...");
 					try {
-						new Grids(Main.world).buildFrom("src/resources/world");
+						new Grids(Main.world).buildFrom("src/resources/world.dcn");
 					} catch (IOException e) {
 						e.printStackTrace();
 					};

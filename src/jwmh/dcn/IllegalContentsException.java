@@ -1,4 +1,4 @@
-package jwmh.dcn.exceptions;
+package jwmh.dcn;
 
 /**
  * This exception is thrown when the

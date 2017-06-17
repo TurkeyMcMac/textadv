@@ -9,7 +9,7 @@ package jwmh.dcn;
 final class StringCapsule extends PrimitiveCapsule<String> {
 
 	public StringCapsule() {
-		super('"', '"', null);
+		super('"', '"');
 	}
 	/*
 	 * returns the same string

@@ -1,14 +1,15 @@
 package textadv.base.resources;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import jwmh.commands.Command;
 import jwmh.commands.CommandSet;
-import jwmh.dcn.Capsules;
+import jwmh.dcn.*;
 import textadv.base.directions.CarDir;
 import textadv.base.player.Player;
 import textadv.base.population.Goblin;
@@ -48,10 +49,11 @@ public class Grids {
 	);
 	
 	public void buildFrom(String path) throws IOException {
-		List<Object> orders = Capsules.readListFile(path);
-		for (Object o : orders) {
-			buildCmds.runFrom((String)o);
-		}
+		CapsuleReader reader = new CapsuleReader(
+							       new BufferedReader(
+							    	   new FileReader(path)));
+		reader.whileReading((o) -> buildCmds.runFrom((String)o));
+		reader.close();
 	}
 
 }

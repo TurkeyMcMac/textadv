@@ -9,15 +9,15 @@ import java.util.List;
  * @author jude
  *
  */
-final class ListCapsule extends WritableCollectiveCapsule<List<?>> {
+final class ListCapsule extends LongCollectiveCapsule<List<?>> {
 
 	protected ListCapsule() {
-		super('[', ']', null);
+		super('[', ']');
 	}
 	
 	/*
 	 * returns the same list that was passed in
-	 * */
+	 */
 	@Override
 	protected List<Object> processList(List<Object> valueList) {
 		return valueList;
@@ -35,11 +35,11 @@ final class ListCapsule extends WritableCollectiveCapsule<List<?>> {
 
 	@Override
 	protected String stringifyItems(Object anObject) {
-		String stringified = "";
+		StringBuffer stringified = new StringBuffer();
 		for (Object o : (List<?>)anObject) {
-			stringified += WritableCollectiveCapsule.tabs + Capsule.doStringify(o) + '\n';
+			stringified.append(LongCollectiveCapsule.tabs + Capsule.doStringify(o) + '\n');
 		}
-		return stringified;
+		return stringified.toString();
 	}
 	
 }

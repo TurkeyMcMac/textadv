@@ -1,5 +1,8 @@
 package jwmh.dcn;
 
+import java.io.IOException;
+import java.io.Reader;
+
 /**
  * This class is the parent
  * of all capsule types which
@@ -12,8 +15,8 @@ package jwmh.dcn;
  */
 abstract class PrimitiveCapsule<T> extends Capsule<T> {
 
-	protected PrimitiveCapsule(Character start, Character finish, String selector) {
-		super(start, finish, selector);
+	protected PrimitiveCapsule(Character start, Character finish) {
+		super(start, finish);
 	}
 	
 	/**
@@ -26,19 +29,19 @@ abstract class PrimitiveCapsule<T> extends Capsule<T> {
 	protected abstract T parseContents(String contents);
 	
 	@Override
-	protected ValueEnd evaluate(String capsule) {
+	protected T evaluate(Reader reader)
+		throws IOException {
 		String contents = "";
-	    int terminator = 0;
-	    for (int i = 0; i < capsule.length(); i++) {
-	    	char currentChar = capsule.charAt(i);
-	        if (currentChar == FINISH) {
-	        	terminator = i;
-	            break;
-	        } else {
-	            contents += currentChar;
-	        }
-	 	}
-		return new ValueEnd(parseContents(contents), terminator);
+		int current;
+		while ((current = reader.read()) != -1) {
+			char currentChar = (char)current;
+			if (currentChar == FINISH) {
+				break;
+			} else {
+				contents += (char)current;
+			}
+		}
+		return parseContents(contents);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -10,7 +10,7 @@ package jwmh.dcn;
 final class FloatCapsule extends PrimitiveCapsule<Float> {
 
 	public FloatCapsule() {
-		super('%', null, null);
+		super('%', ';');
 	}
 	
 	@Override

@@ -1,5 +1,8 @@
 package jwmh.dcn;
 
+import java.io.IOException;
+import java.io.Reader;
+
 /**
  * This capsule type always
  * holds the value null.
@@ -7,14 +10,11 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class NullCapsule extends EmptyCapsule {
+final class NullCapsule extends Capsule<Object> {
 
 	public NullCapsule() {
-		super('_', '_', null);
-		instance = this;
+		super('_', '_');
 	}
-	
-	protected static NullCapsule instance;
 	
 	protected String stringify(Object aNull) {
 		return START + "null" + FINISH;
@@ -23,6 +23,18 @@ final class NullCapsule extends EmptyCapsule {
 	@Override
 	protected boolean matches(Object anObject) {
 		return anObject == null;
+	}
+
+	@Override
+	protected Object evaluate(Reader reader)
+			throws IOException {
+		int current;
+		while ((current = reader.read()) != -1) {
+			if ((char)current == FINISH) {
+				break;
+			}
+		}
+		return null;
 	}
 	
 }

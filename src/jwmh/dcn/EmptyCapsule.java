@@ -1,5 +1,8 @@
 package jwmh.dcn;
 
+import java.io.IOException;
+import java.io.Reader;
+
 /**
  * This class is the parent
  * of all capsules whose
@@ -10,21 +13,20 @@ package jwmh.dcn;
  */
 abstract class EmptyCapsule extends Capsule<Object> {
 
-	public EmptyCapsule(Character start, Character finish, String selector) {
-		super(start, finish, selector);
+	public EmptyCapsule(Character start, Character finish) {
+		super(start, finish);
 	}
 
 	@Override
-	protected ValueEnd evaluate(String capsule) {
-		int terminator = 0;
-	    for (int i = 0; i < capsule.length(); i++) {
-	    	char currentChar = capsule.charAt(i);
-	        if (currentChar == FINISH) {
-	        	terminator = i;
-	            break;
-	        }
-	 	}
-		return new ValueEnd(null, terminator);
+	protected Object evaluate(Reader reader)
+			throws IOException {
+		int current;
+		while ((current = reader.read()) != -1) {
+			if ((char)current == FINISH) {
+				break;
+			}
+		}
+		return null;
 	}
 
 }

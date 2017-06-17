@@ -3,8 +3,8 @@ package jwmh.dcn;
 /**
  * This class is the parent
  * of all collective capsule
- * types which can be written
- * automatically as strings.
+ * types which span multiple
+ * lines.
  * <p>
  * (Not capsules that deal
  * with variables.)
@@ -13,10 +13,10 @@ package jwmh.dcn;
  *
  * @param <T> the type that the capsule contains
  */
-abstract class WritableCollectiveCapsule<T> extends CollectiveCapsule<T> {
+abstract class LongCollectiveCapsule<T> extends CollectiveCapsule<T> {
 
-	protected WritableCollectiveCapsule(Character start, Character finish, String selector) {
-		super(start, finish, selector);
+	protected LongCollectiveCapsule(Character start, Character finish) {
+		super(start, finish);
 	}
 	
 	/**
@@ -27,20 +27,30 @@ abstract class WritableCollectiveCapsule<T> extends CollectiveCapsule<T> {
 	
 	@Override
 	protected String stringify(Object anObject) {
-		String stringified = Character.toString(START);
+		StringBuffer stringified = new StringBuffer(Character.toString(START));
 		if (!checkEmpty(anObject)) { //if data structure is not empty
-			stringified += '\n';
+			stringified.append('\n');
 			tabs += '\t'; //add a tab to the counter
-			stringified += stringifyItems(anObject); // list items
+			stringified.append(stringifyItems(anObject)); // list items
 			tabs = tabs.substring(0, tabs.length() - 1); // remove the tab that was just added
-			stringified += tabs; // indent
+			stringified.append(tabs); // indent
 		}
-		stringified += FINISH;
-		return stringified;
+		stringified.append(FINISH);
+		return stringified.toString();
 	}
 	
+	/**
+	 * 
+	 * @param anObject
+	 * @return whether or not the object is empty
+	 */
 	protected abstract boolean checkEmpty(Object anObject);
 	
+	/**
+	 * 
+	 * @param anObject
+	 * @return the string representation of the items in an object
+	 */
 	protected abstract String stringifyItems(Object anObject);
 	
 }

@@ -10,7 +10,7 @@ package jwmh.dcn;
 final class IntegerCapsule extends PrimitiveCapsule<Integer> {
 
 	protected IntegerCapsule() {
-		super('#', null, null);
+		super('#', ';');
 	}
 	
 	@Override

@@ -14,8 +14,6 @@
 		"icon"=^"default-icon"!
 	}!
 	
-	"default"=^"default"!
-	
 `Miscellaneous icons`
 	
 	`Surfaces`
@@ -31,6 +29,9 @@
 		$"box-dark"='▫'!
 		
 		$"box-light"='▪'!
+{
+`Default`
+	"default"=^"default"!
 
 `Beings`
 
@@ -95,3 +96,4 @@
 		"info"="The dark."
 		"icon"=' '
 	}
+}

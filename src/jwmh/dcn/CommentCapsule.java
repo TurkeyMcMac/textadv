@@ -11,17 +11,17 @@ package jwmh.dcn;
 final class CommentCapsule extends EmptyCapsule implements Ignored {
 
 	public CommentCapsule() {
-		super('`', '`', null);
+		super('`', '`');
 	}
 
 	@Override
 	protected String stringify(Object anObject) {
-		return null;
+		return START + anObject.toString() + FINISH;
 	}
 
 	@Override
 	protected boolean matches(Object anObject) {
-		return false;
+		return anObject instanceof Comment;
 	}
 	
 }
