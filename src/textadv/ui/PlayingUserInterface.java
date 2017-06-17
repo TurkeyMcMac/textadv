@@ -84,13 +84,33 @@ public final class PlayingUserInterface extends CommandSet<String> {
 					return grid.draw();
 				}),
 			new Command<String>("look")
-				.setArgNames("cardinal direction")
-				.setInfo("Inspect a tile in one's vicinity.")
+				.setArgNames("location")
+				.setInfo("Inspect a tile in one's vicinity. A location is specified "
+						+ "by a cardinal direction, \"here\" or 'h', meaning one's "
+						+ "current tile, or '*', meaning every tile that is nearby.")
 				.setEffect((String[] args) -> {
 					grid.loadPlayer(loadX, loadY);
+					String looked;
+					switch(args[1]) {
+						case "*":
+							Tile[] tiles = surroundings(player.getTile());
+							StringBuffer tileMessages = new StringBuffer();
+							for (Tile t : tiles) {
+								tileMessages.append(t.toString() + '\n');
+							}
+							looked = tileMessages.toString();
+							break;
+						case "h":
+						case "here":
+							looked = player.getTile().toString();
+							break;
+						default:
+							looked = player.look(parseCarDir(args[1])).toString();
+							break;
+					}
 					return	grid.draw()
 						  + '\n'
-						  + grid.getPlayer().look(parseCarDir(args[1])).toString();
+						  + looked;
 				}),
 			new Command<String>("exam")
 				.setArgNames("item name")
@@ -128,10 +148,7 @@ public final class PlayingUserInterface extends CommandSet<String> {
 				.setArgNames("item name")
 				.setInfo("Pick up an item from one's vicinity.")
 				.setEffect((String[] args) -> {
-					Tile tile = player.getTile();
-					int x = tile.getX(),
-						y = tile.getY();
-					Tile[] searchArray = surroundings(x, y, grid);
+					Tile[] searchArray = surroundings(player.getTile());
 					for (Tile t : searchArray) {
 						Describable found = findByName(args[1], t.getPiles());
 						if (found instanceof Item) {
@@ -272,10 +289,7 @@ public final class PlayingUserInterface extends CommandSet<String> {
 				.setArgNames("being name")
 				.setInfo("Talk to a person in one's vicinity.")
 				.setEffect((String[] args) -> {
-					Tile tile = player.getTile();
-					int x = tile.getX(),
-						y = tile.getY();
-					Tile[] searchArray = surroundings(x, y, grid);
+					Tile[] searchArray = surroundings(player.getTile());
 					for (Tile t : searchArray) {
 						Describable found = findByName(args[1], t.getPiles());
 						if (found instanceof Talker) {
@@ -396,7 +410,9 @@ public final class PlayingUserInterface extends CommandSet<String> {
 		return foundList;
 	}
 	
-	private static Tile[] surroundings(int x, int y, Grid grid) {
+	private Tile[] surroundings(Tile tile) {
+		int x = tile.getX(),
+			y = tile.getY();
 		return new Tile[] {
 				grid.getTile(x  , y  ),
 				grid.getTile(x, y - 1),
