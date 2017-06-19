@@ -6,23 +6,24 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class StringCapsule extends PrimitiveCapsule<String> {
+final class StringCapsule extends TextCapsule<String> {
 
 	public StringCapsule() {
 		super('"', '"');
-	}
-	/*
-	 * returns the same string
-	 * value that was passed in.
-	 * */
-	@Override
-	protected String parseContents(String contents) {
-		return contents;
 	}
 
 	@Override
 	protected boolean matches(Object anObject) {
 		return anObject instanceof String;
+	}
+	
+	/*
+	 * returns the same string
+	 * value that was passed in.
+	 * */
+	@Override
+	protected String parseBackslashified(String contents) {
+		return contents;
 	}
 
 }

@@ -7,7 +7,7 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class FloatCapsule extends PrimitiveCapsule<Float> {
+final class FloatCapsule extends SimpleCapsule<Float> {
 
 	public FloatCapsule() {
 		super('%', ';');

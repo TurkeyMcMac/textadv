@@ -7,7 +7,7 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class IntegerCapsule extends PrimitiveCapsule<Integer> {
+final class IntegerCapsule extends SimpleCapsule<Integer> {
 
 	protected IntegerCapsule() {
 		super('#', ';');

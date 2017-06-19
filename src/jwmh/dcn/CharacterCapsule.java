@@ -7,14 +7,14 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class CharacterCapsule extends PrimitiveCapsule<Character> {
+final class CharacterCapsule extends TextCapsule<Character> {
 
 	protected CharacterCapsule() {
 		super('\'', '\'');
 	}
 	
 	@Override
-	protected Character parseContents(String contents) {
+	protected Character parseBackslashified(String contents) {
 		if (contents.length() != 1) {
 			throw new IllegalContentsException("character capsules must contain a single character");
 		}

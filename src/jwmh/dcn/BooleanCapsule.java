@@ -7,7 +7,7 @@ package jwmh.dcn;
  * @author jude
  *
  */
-final class BooleanCapsule extends PrimitiveCapsule<Boolean> {
+final class BooleanCapsule extends SimpleCapsule<Boolean> {
 
 	protected BooleanCapsule() {
 		super('?', ';');

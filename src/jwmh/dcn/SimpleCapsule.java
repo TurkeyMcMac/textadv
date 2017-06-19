@@ -6,16 +6,16 @@ import java.io.Reader;
 /**
  * This class is the parent
  * of all capsule types which
- * hold primitive, unstructured
- * values.
+ * process raw text on their own
+ * with no prior modifications.
  * 
  * @author jude
  *
  * @param <T> the type that the capsule holds
  */
-abstract class PrimitiveCapsule<T> extends Capsule<T> {
+abstract class SimpleCapsule<T> extends Capsule<T> {
 
-	protected PrimitiveCapsule(Character start, Character finish) {
+	protected SimpleCapsule(Character start, Character finish) {
 		super(start, finish);
 	}
 	
@@ -31,17 +31,17 @@ abstract class PrimitiveCapsule<T> extends Capsule<T> {
 	@Override
 	protected T evaluate(Reader reader)
 		throws IOException {
-		String contents = "";
+		StringBuffer contents = new StringBuffer();
 		int current;
 		while ((current = reader.read()) != -1) {
 			char currentChar = (char)current;
 			if (currentChar == FINISH) {
 				break;
 			} else {
-				contents += (char)current;
+				contents.append((char)current);
 			}
 		}
-		return parseContents(contents);
+		return parseContents(contents.toString());
 	}
 	
 	@SuppressWarnings("unchecked")
