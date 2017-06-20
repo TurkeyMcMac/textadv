@@ -2,21 +2,11 @@
 package textadv.base.world;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
-
-import jwmh.commands.*;
-import jwmh.dcn.*;
-
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import textadv.base.directions.CarDir;
 import textadv.base.outfits.Solid;
 import textadv.base.player.Player;
-import textadv.base.population.*;
 
 public class Grid implements Serializable {
 
@@ -27,6 +17,7 @@ public class Grid implements Serializable {
 	Tile[][] tiles;
 	private transient List<Tile> loaded = new ArrayList<>();
 	private Player player;
+	private StringBuffer alerts = new StringBuffer();
 	
 	public Grid(int width, int height, Tile filler) {
 		WIDTH = width;
@@ -130,14 +121,18 @@ public class Grid implements Serializable {
 		return map;
 	}
 	
+	public void loadTile(Tile tile, int xReach, int yReach) {
+		int x = tile.getX(),
+			y = tile.getY();
+		load(x - xReach, y - yReach, x + xReach, y + yReach);
+	}
+	
 	public void loadPlayer(int xReach, int yReach) {
-		Tile playerTile = player.getTile();
-		int playerX = playerTile.getX();
-		int playerY = playerTile.getY();
-		load(playerX - xReach, playerY - yReach, playerX + xReach, playerY + yReach);
+		loadTile(player.getTile(), xReach, yReach);
 	}
 	
 	public void update() {
+		alerts.delete(0, alerts.length());
 		for (Tile t : loaded) t.resetUpdater();
 		for (Tile t : loaded) t.update();
 	}
@@ -171,6 +166,14 @@ public class Grid implements Serializable {
 	
 	public Ground shuffle(Ground ground, int targX, int targY) {
 		return ground.warp(getTile(targX, targY));
+	}
+	
+	public void alert(Object message) {
+		alerts.append('\n' + message.toString());
+	}
+	
+	public String getAlerts() {
+		return alerts.toString();
 	}
 	
 }

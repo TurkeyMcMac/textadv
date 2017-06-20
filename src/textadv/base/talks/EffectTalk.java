@@ -1,5 +1,6 @@
 package textadv.base.talks;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.function.Consumer;
 
@@ -9,17 +10,20 @@ public class EffectTalk extends Talk {
 
 	private static final long serialVersionUID = 7950078233988527905L;
 	
-	private Consumer<Talker> effect;
+	private Effect effect;
 	private Talker talker;
 	
 	public EffectTalk(String text, 
 					  LinkedHashMap<String, Talk> nextTalks,
 					  Talker talker,
-					  Consumer<Talker> effect) {
+					  Effect effect) {
 		super(text, nextTalks);
 		this.effect = effect;
 		this.talker = talker;
 	}
+	
+	@FunctionalInterface
+	public interface Effect extends Consumer<Talker>, Serializable {}
 	
 	@Override
 	protected void picked() {

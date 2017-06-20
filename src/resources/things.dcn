@@ -2,98 +2,112 @@
 
 `Default values | WARNING: changing these names can cause errors!`
 	
-	$"default-name"="Thing"!
+	$"default-name" "Thing"!
 	
-	$"default-info"="A thing"!
+	$"default-info" "A thing"!
 	
-	$"default-icon"='�'!
+	$"default-icon" '�'!
 	
-	$"default"={
-		"name"=^"default-name"!
-		"info"=^"default-info"!
-		"icon"=^"default-icon"!
+	$"default" {
+		"name" ^"default-name"!
+		"info" ^"default-info"!
+		"icon" ^"default-icon"!
 	}!
 	
 `Miscellaneous icons`
 	
 	`Surfaces`
 	
-		$"surface-dark"='░'!
+		$"surface-dark" '░'!
 		
-		$"surface-med"='▒'!
+		$"surface-med" '▒'!
 		
-		$"surface-light"='▓'!
+		$"surface-light" '▓'!
 	
 	`Boxes`
 		
-		$"box-dark"='▫'!
+		$"box-dark" '▫'!
 		
-		$"box-light"='▪'!
+		$"box-light" '▪'!
+		
 {
 `Default`
-	"default"=^"default"!
+
+	"default" ^"default"!
 
 `Beings`
 
-	"goblin-small"={
-		"name"="Kobold"
-		"info"="A small goblin."
-		"icon"='ᵍ'
+	"goblin-small" {
+		"name" "Kobold"
+		"info" "A small goblin."
+		"icon" 'ᵍ'
 	}
 	
 	"goblin-med"={
-		"name"="Goblin"
-		"info"="A goblin."
-		"icon"='g'
+		"name" "Goblin"
+		"info" "A goblin."
+		"icon" 'g'
 	}
 	
-	"goblin-large"={
-		"name"="Orc"
-		"info"="A large goblin."
-		"icon"='G'
+	"goblin-large" {
+		"name" "Orc"
+		"info" "A large goblin."
+		"icon" 'G'
 	}
 	
-	"player"={
-		"name"="Player"
-		"info"="The player."
-		"icon"='P'
+	"legged-fish" {
+		"name" "Fish"
+		"info" "This is a fish with legs..."
+		"icon" '>'
+	}
+	
+	"player" {
+		"name" "Player"
+		"info" "The player."
+		"icon" 'P'
 	}
 	
 `Grounds`
 
-	"empty"={
-		"name"="Empty"
-		"info"="Empty ground."
-		"icon"='-'
+	"empty" {
+		"name" "Empty"
+		"info" "Empty ground."
+		"icon" '-'
 	}
 	
 	"water"={
-		"name"="Water"
-		"info"="Water."
-		"icon"='~'
+		"name" "Water"
+		"info" "Water."
+		"icon" '~'
 	}
 	
 `Solid stuff`
 	
-	"plant"={
-		"name"="Plant"
-		"info"="A plant."
-		"icon"='ϒ'
+	"plant" {
+		"name" "Plant"
+		"info" "A plant."
+		"icon" 'ϒ'
 	}
 	
 `Items`
 
-	"item"={
-		"name"="Item"
-		"info"="An item."
-		"icon"='҂'
+	"item" {
+		"name" "Item"
+		"info" "An item."
+		"icon" '҂'
+	}
+	
+	"lorem-ipsum" {
+		"name" "Scroll"
+		"info" "\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\""
+		"icon" '='
 	}
 	
 `Miscellaneous`
 
-	"darkness"={
-		"name"="Darkness"
-		"info"="The dark."
-		"icon"=' '
+	"darkness" {
+		"name" "Darkness"
+		"info" "The dark."
+		"icon" ' '
 	}
 }

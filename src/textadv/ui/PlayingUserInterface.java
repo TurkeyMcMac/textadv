@@ -40,7 +40,7 @@ public final class PlayingUserInterface extends CommandSet<String> {
 				.setInfo("A welcome message.")
 				.setEffect((String[] args) -> "Welcome to textadv!\n\n"
 											+ getString("help", 0) + "\n\n"
-											+ getString("help", 2)),
+											+ getString("help", 2) + "\n\n"),
 			new Command<String>("help")
 				.setArgNames()
 				.setInfo("List all commands.")

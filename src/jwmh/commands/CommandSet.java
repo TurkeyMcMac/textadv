@@ -1,6 +1,5 @@
 package jwmh.commands;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,11 +17,13 @@ public class CommandSet<T> {
 	}
 	
 	public T run(String ... args) throws UnknownCommandException {
-		try {
-			return cmdMap.get(new Pair<>(args[0], args.length - 1)).run(args);
-		} catch (NullPointerException e) {
-			throw new UnknownCommandException(Arrays.toString(args));
+		String key = args[0];
+		int argNum = args.length - 1;
+		Command<T> cmd = cmdMap.get(new Pair<>(key, argNum));
+		if (cmd == null) {
+			throw new UnknownCommandException(key + " <" + argNum + " arguments>");
 		}
+		return cmd.run(args);
 	}
 	
 	public T runFrom(String givenCmd) throws UnknownCommandException {

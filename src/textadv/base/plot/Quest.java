@@ -3,6 +3,7 @@ package textadv.base.plot;
 import java.io.Serializable;
 
 import textadv.base.outfits.Describable;
+import textadv.base.world.Grid;
 
 public abstract class Quest implements Describable, Serializable {
 	
@@ -11,7 +12,7 @@ public abstract class Quest implements Describable, Serializable {
 	private Status status = Status.NOT_STARTED;
 	private String name;
 	
-	public Quest(String name) {
+	public Quest(String name, Grid grid) {
 		this.name = name;
 	}
 	
@@ -38,6 +39,7 @@ public abstract class Quest implements Describable, Serializable {
 	
 	public final boolean start() {
 		if (status == Status.NOT_STARTED) {
+			status = Status.STARTED;
 			doStart();
 			return true;
 		} else {
@@ -49,6 +51,7 @@ public abstract class Quest implements Describable, Serializable {
 	
 	public final boolean finish() {
 		if (status == Status.STARTED) {
+			status = Status.FINISHED;
 			doFinish();
 			return true;
 		} else {
@@ -60,6 +63,7 @@ public abstract class Quest implements Describable, Serializable {
 	
 	public final boolean fail() {
 		if (status == Status.FAILED) {
+			status = Status.FAILED;
 			doFail();
 			return true;
 		} else {
@@ -71,22 +75,34 @@ public abstract class Quest implements Describable, Serializable {
 		status = Status.NOT_STARTED;
 	}
 	
-	public static enum Status {
+	public static enum Status implements Describable {
 		
-		NOT_STARTED("This quest has not been started."),
-		STARTED("This quest is in the process of being completed."),
-		FINISHED("This quest has been finished."),
-		FAILED("You have failed in completing this quest.");
+		NOT_STARTED("not started", "This quest has not been started."),
+		STARTED("started", "This quest is in the process of being completed."),
+		FINISHED("finished", "You have finished this quest."),
+		FAILED("failed", "You have failed in completing this quest.");
 		
-		private String message;
+		private String name;
+		private String info;
 		
-		Status(String message) {
-			this.message = message;
+		Status(String name, String info) {
+			this.name = name;
+			this.info = info;
 		}
 		
 		@Override
 		public String toString() {
-			return message;
+			return describe();
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public String getInfo() {
+			return info;
 		}
 		
 	}
