@@ -14,6 +14,7 @@ import textadv.base.world.Grid;
 import textadv.base.world.Pile;
 import textadv.base.world.Tile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -325,9 +326,17 @@ public final class PlayingUserInterface extends CommandSet<String> {
 				.setArgNames()
 				.setInfo("Save and exit the game.")
 				.setEffect((String[] args) -> {
-					BasicUserInterface.save();
+					try {
+						BasicUserInterface.save();
+					} catch (IOException e) {
+						return "Saving failed: " + e + "\n\n" +
+							   "Enter the command \"exit!\" to " +
+							   "exit the game regardless, or try " +
+							   "fixing the problem with a different " +
+							   "program.";
+					}
 					System.exit(0);
-					return "";
+					return null;
 				}),
 			new Command<String>("exit!")
 				.setArgNames()

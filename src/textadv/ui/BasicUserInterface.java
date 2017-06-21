@@ -22,21 +22,22 @@ public class BasicUserInterface extends CommandSet<Void> {
 
 	public static final String SAVES = "src/saves/";
 	
-	public static void save() {
+	public static void save() throws IOException {
 		System.out.println("Saving world...");
-		try {
-			ObjectOutputStream saveData = new ObjectOutputStream(
-											new FileOutputStream(
-												new File(location + "world")));
-			System.out.println("Writing world...");
-			saveData.writeObject(Main.world);
-			saveData.writeObject(Faction.getAll());
-			saveData.close();
-			System.out.println("Writing factions...");
-			Faction.writeAll(location + "factions.dcn");
-		} catch (IOException e) {
-			e.printStackTrace();
+		File saveDir = new File(location);
+		if (!saveDir.isDirectory()) {
+			System.out.println("Creating save directory...");
+			new File(location).mkdir();
 		}
+		ObjectOutputStream saveData = new ObjectOutputStream(
+										new FileOutputStream(
+											new File(saveDir.getPath() + "/world")));
+		System.out.println("Writing world...");
+		saveData.writeObject(Main.world);
+		saveData.writeObject(Faction.getAll());
+		saveData.close();
+		System.out.println("Writing factions...");
+		Faction.writeAll(saveDir.getPath() + "/factions.dcn");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -80,8 +81,6 @@ public class BasicUserInterface extends CommandSet<Void> {
 					};
 					Main.playerUI = new PlayingUserInterface(Main.world);
 					location = SAVES + args[1] + '/';
-					System.out.println("Creating save directory");
-					new File(location).mkdir();
 					return null;
 				}),
 			new Command<Void>("-l", "--load")
