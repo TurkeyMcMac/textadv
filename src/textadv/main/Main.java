@@ -12,7 +12,7 @@ public final class Main {
 	public static PlayingUserInterface playerUI;
 	
 	private static void screen(String input) {
-		System.out.println(new StringWrapper(60, "\033c" + playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
+		System.out.println("\033c" + new StringWrapper(60, playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
 	}
 	
 	public static void main(String[] args) {
