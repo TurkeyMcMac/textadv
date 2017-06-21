@@ -30,7 +30,6 @@ public final class PlayingUserInterface extends CommandSet<String> {
 	PlayerController controller;
 	
 	public PlayingUserInterface(Grid grid) {
-		super();
 		this.grid = grid;
 		player = grid.getPlayer();
 		controller = player.getController();

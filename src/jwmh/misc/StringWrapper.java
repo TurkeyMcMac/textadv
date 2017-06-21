@@ -1,66 +1,57 @@
 package jwmh.misc;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class StringWrapper {
 
-	int lineLength;
-	String wrapped;
+	private final int lineLength;
+	private final int lineCount;
+	private final String wrapped;
 	
-	public StringWrapper(String wrap, int wrapToLength, Set<Character> wordSplitters, Set<Character> lineRestarters) {
-		StringBuilder wrapper = new StringBuilder();
-		wrapToLength -= 3;
-		int i = 0,
-			wordBreak = 0,
-			lineStart = 0,
-			currentLineLength = 0;
-		do {
-			++currentLineLength;
+	public StringWrapper(int wrapToLength, String wrap)
+		throws ArithmeticException
+	{
+		if (wrapToLength == 0) {
+			throw new ArithmeticException("/ by zero");
+		}
+		StringBuilder wrapper = new StringBuilder(wrap.length() + (int)Math.floor(
+														(double)wrap.length() / 
+														(double)wrapToLength));
+		System.out.println(wrapper.capacity());
+		int lines = 1,
+			currentLineLength = -1;
+		for (int i = 0; i < wrap.length(); ++i) {
 			char currentChar = wrap.charAt(i);
-			if (i - wordBreak + 1 >= wrapToLength || wordSplitters.contains(currentChar)) {
-				wordBreak = i + 1;
-			} else if (lineRestarters.contains(currentChar)) {
+			++currentLineLength;
+			if (currentChar == '\n' || currentChar == '\r') {
+				++lines;
+				currentLineLength = -1;
+			}else if (currentLineLength == wrapToLength) {
+				wrapper.append('\n');
+				++lines;
 				currentLineLength = 0;
 			}
-			if (currentLineLength >= wrapToLength) {
-				String line = wrap.substring(lineStart, wordBreak);
-				wrapper.append(line + /*"| " + line.length() + ", " + (wrapToLength + 3) +*/ '\n');
-				lineStart = wordBreak;
-				currentLineLength = 0;
-			}
-		} while (++i < wrap.length());
-		wrapper.append(wrap.substring(lineStart, i));
+			wrapper.append(currentChar);
+		}
+		System.out.println(wrapper.length());
 		lineLength = wrapToLength;
+		lineCount = lines;
 		wrapped = wrapper.toString();
-	}
-	
-	public static final Set<Character> WORD_SPLITTERS = new HashSet<>();
-	static {
-		WORD_SPLITTERS.add(' ');
-		WORD_SPLITTERS.add('-');
-	}
-	
-	public static final Set<Character> LINE_RESTARTERS = new HashSet<>();
-	static {
-		LINE_RESTARTERS.add('\f');
-		LINE_RESTARTERS.add('\n');
-		LINE_RESTARTERS.add('\r');
-	}
-	
-	public StringWrapper(String wrap, int wrapToLength) {
-		this(wrap, wrapToLength, WORD_SPLITTERS, LINE_RESTARTERS);
 	}
 	
 	public String toString() {
 		return wrapped;
 	}
-	/*
-	public static void main(String[] args) {
-		for (int i = 10; i < 100; ++i) {
-			System.out.println(new StringWrapper("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?", i));
-		}
+	
+	public int lineCount() {
+		return lineCount;
 	}
-	*/
+	
+	public int lineLength() {
+		return lineLength;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(new StringWrapper(60, "    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"));
+	}
+	
 	
 }
