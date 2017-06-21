@@ -33,7 +33,7 @@ public final class Main {
 	}
 	
 	private static void screen(String input) {
-		System.out.println("\033c" + new StringWrapper(60, title + '\n' + playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
+		System.out.println("\033c" + title + '\n' + new StringWrapper(60, playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
 	}
 	
 	public static void main(String[] args) {
