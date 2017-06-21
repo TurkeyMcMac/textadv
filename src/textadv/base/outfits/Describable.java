@@ -29,7 +29,7 @@ public interface Describable {
 		StringBuffer stringified = new StringBuffer(label);
 		for (String n : occurrence.keySet()) {
 			int times = occurrence.get(n);
-			stringified.append("\n\t" + n + (times > 1 ? " x" + times : ""));
+			stringified.append("\n    " + n + (times > 1 ? " x" + times : ""));
 		}
 		return stringified.toString();
 	}

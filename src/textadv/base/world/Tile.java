@@ -137,7 +137,7 @@ public final class Tile implements Serializable {
 	
 	public String toString() {
 		StringBuffer stringified = new StringBuffer("(" + x + ", " + y + ")");
-		stringified.append("\nGround:\n\t" + ground.getName());
+		stringified.append("\nGround:\n    " + ground.getName());
 		stringified.append(Describable.nameList("\nPiles:", piles));
 		return stringified.toString();
 	}
