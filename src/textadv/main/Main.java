@@ -1,5 +1,9 @@
 package textadv.main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import jwmh.misc.StringWrapper;
 import textadv.base.world.*;
 import textadv.ui.PlayingUserInterface;
@@ -11,8 +15,25 @@ public final class Main {
 	
 	public static PlayingUserInterface playerUI;
 	
+	private static String title;
+	
+	static {
+		try {
+			BufferedReader titleReader = new BufferedReader(new FileReader("src/resources/title.txt"));
+			StringBuilder readTitle = new StringBuilder();
+			String line;
+			while ((line = titleReader.readLine()) != null) {
+				readTitle.append(line + '\n');
+			}
+			titleReader.close();
+			title = readTitle.toString();
+		} catch (IOException e) {
+			title = "TEXTADV\n";
+		}
+	}
+	
 	private static void screen(String input) {
-		System.out.println("\033c" + new StringWrapper(60, playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
+		System.out.println("\033c" + new StringWrapper(60, title + '\n' + playerUI.tryRunFrom(input) + '\n' + world.getAlerts() + "\n>>"));
 	}
 	
 	public static void main(String[] args) {
