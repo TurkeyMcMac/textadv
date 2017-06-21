@@ -49,7 +49,7 @@ public class BasicUserInterface extends CommandSet<Void> {
 												new File(location + "world")));
 			System.out.println("Reading world...");
 			Grid world = (Grid)saveData.readObject();
-			System.out.println("Reading world...");
+			System.out.println("Reading factions...");
 			Faction.setAll((Map<String, Faction>)saveData.readObject());
 			Faction.loadAll(location + "factions");
 			saveData.close();
