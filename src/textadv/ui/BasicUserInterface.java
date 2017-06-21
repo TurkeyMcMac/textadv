@@ -33,7 +33,7 @@ public class BasicUserInterface extends CommandSet<Void> {
 			saveData.writeObject(Faction.getAll());
 			saveData.close();
 			System.out.println("Writing factions...");
-			Faction.writeAll(location + "factions");
+			Faction.writeAll(location + "factions.dcn");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class BasicUserInterface extends CommandSet<Void> {
 			Grid world = (Grid)saveData.readObject();
 			System.out.println("Reading factions...");
 			Faction.setAll((Map<String, Faction>)saveData.readObject());
-			Faction.loadAll(location + "factions");
+			Faction.loadAll(location + "factions.dcn");
 			saveData.close();
 			return world;
 		} catch (IOException | ClassNotFoundException e) {
