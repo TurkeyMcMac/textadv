@@ -55,12 +55,14 @@ final class HashCapsule extends LongCollectiveCapsule<Map<?, ?>> {
 	}
 
 	@Override
-	protected String stringifyItems(Object anObject) {
+	protected String stringifyItems(Object anObject, StringBuilder tabs) {
+		tabs.append('\t');
 		StringBuffer stringified = new StringBuffer();
 		for (Object o : ((Map<?, ?>)anObject).keySet()) {
-			stringified.append(LongCollectiveCapsule.tabs + Capsule.doStringify(o));
+			stringified.append(tabs + Capsule.doStringify(o));
 			stringified.append(' ' + Capsule.doStringify(((Map<?, ?>)anObject).get(o)) + '\n');
 		}
+		tabs.setLength(tabs.length() - 1);
 		return stringified.toString();
 	}
 	

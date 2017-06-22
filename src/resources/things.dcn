@@ -75,10 +75,10 @@
 						]
 						"Nope!" [
 							&
-								"Try this:"   '\n'
-								"    1. one"  '\n'
-								"    2. two"  '\n'
-								"    3. three"
+							"Try this:\n"
+							"    1. one\n"
+							"    2. two\n"
+							"    3. three"
 							~
 							{}
 						]

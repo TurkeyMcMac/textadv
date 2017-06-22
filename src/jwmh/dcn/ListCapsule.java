@@ -34,11 +34,13 @@ final class ListCapsule extends LongCollectiveCapsule<List<?>> {
 	}
 
 	@Override
-	protected String stringifyItems(Object anObject) {
+	protected String stringifyItems(Object anObject, StringBuilder tabs) {
+		tabs.append('\t');
 		StringBuffer stringified = new StringBuffer();
 		for (Object o : (List<?>)anObject) {
-			stringified.append(LongCollectiveCapsule.tabs + Capsule.doStringify(o) + '\n');
+			stringified.append(tabs + Capsule.doStringify(o) + '\n');
 		}
+		tabs.setLength(tabs.length() - 1);
 		return stringified.toString();
 	}
 	

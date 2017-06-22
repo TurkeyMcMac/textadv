@@ -23,16 +23,14 @@ abstract class LongCollectiveCapsule<T> extends CollectiveCapsule<T> {
 	 * The number of tabs
 	 * currently active.
 	 */
-	protected static String tabs = "";
+	private static StringBuilder tabs = new StringBuilder();
 	
 	@Override
 	protected String stringify(Object anObject) {
 		StringBuffer stringified = new StringBuffer(Character.toString(START));
 		if (!checkEmpty(anObject)) { //if data structure is not empty
 			stringified.append('\n');
-			tabs += '\t'; //add a tab to the counter
-			stringified.append(stringifyItems(anObject)); // list items
-			tabs = tabs.substring(0, tabs.length() - 1); // remove the tab that was just added
+			stringified.append(stringifyItems(anObject, tabs));
 			stringified.append(tabs); // indent
 		}
 		stringified.append(FINISH);
@@ -51,6 +49,6 @@ abstract class LongCollectiveCapsule<T> extends CollectiveCapsule<T> {
 	 * @param anObject
 	 * @return the string representation of the items in an object
 	 */
-	protected abstract String stringifyItems(Object anObject);
+	protected abstract String stringifyItems(Object anObject, StringBuilder tabs);
 	
 }

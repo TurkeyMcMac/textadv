@@ -25,11 +25,11 @@ class TapestryCapsule extends LongCollectiveCapsule<String> {
 	}
 
 	@Override
-	protected String stringifyItems(Object anObject) {
+	protected String stringifyItems(Object anObject, StringBuilder tabs) {
 		List<Object> valuesToStringify = ((Tapestry)anObject).parts;
 		StringBuffer stringified = new StringBuffer();
 		for (Object o : valuesToStringify) {
-			stringified.append(LongCollectiveCapsule.tabs + Capsule.doStringify(o) + '\n');
+			stringified.append(tabs + Capsule.doStringify(o) + '\n');
 		}
 		return stringified.toString();
 	}

@@ -1,14 +1,11 @@
 package textadv.base.talks;
 
-import java.io.BufferedReader;
 import java.io.Serializable;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jwmh.dcn.CapsuleReader;
 import textadv.base.resources.Things;
 
 public class Talk implements Serializable {
