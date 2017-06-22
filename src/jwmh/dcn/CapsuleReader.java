@@ -43,6 +43,7 @@ public final class CapsuleReader {
 		new NullCapsule();
 		new SetterCapsule();
 		new StringCapsule();
+		new TapestryCapsule();
 	}
 	
 	/**

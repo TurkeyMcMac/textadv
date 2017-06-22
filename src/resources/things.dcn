@@ -59,6 +59,46 @@
 		"name" "Fish"
 		"info" "This is a fish with legs..."
 		"icon" '>'
+		"talk" [
+			"Hi, I'm a fish thing."
+			{
+				"What?" [
+					"Did you hear me?"
+					{
+						"You bet!" [
+							"Ah, good."
+							{}
+						]
+						"I think so..." [
+							"I hope so."
+							{}
+						]
+						"Nope!" [
+							&
+								"Try this:"   '\n'
+								"    1. one"  '\n'
+								"    2. two"  '\n'
+								"    3. three"
+							~
+							{}
+						]
+					}
+				]
+				"OK..." [
+					"Finally, someone understands!"
+					{
+						"Yes" [
+							"I agree."
+							{}
+						]
+						"No" [
+							"I disagree."
+							{}
+						]
+					}
+				]
+			}
+		]
 	}
 	
 	"player" {

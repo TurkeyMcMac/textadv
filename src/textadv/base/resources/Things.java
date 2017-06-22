@@ -25,9 +25,10 @@ public final class Things {
 	
 	public static final Map<Object, Object> THINGS = getThings();
 	
-	public static Object get(String key) {
-		Object gotten = THINGS.get(key);
-		return gotten == null ? THINGS.get("default") : gotten;
+	public static Map<String, ?> get(String key) {
+		@SuppressWarnings("unchecked")
+		Map<String, ?> gotten = (Map<String, ?>)THINGS.get(key);
+		return gotten == null ? get("default") : gotten;
 	}
 	
 }
