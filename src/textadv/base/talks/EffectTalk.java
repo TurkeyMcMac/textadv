@@ -1,7 +1,7 @@
 package textadv.base.talks;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import textadv.base.outfits.Talker;
@@ -14,7 +14,7 @@ public class EffectTalk extends Talk {
 	private Talker talker;
 	
 	public EffectTalk(String text, 
-					  LinkedHashMap<String, Talk> nextTalks,
+					  Map<String, Talk> nextTalks,
 					  Talker talker,
 					  Effect effect) {
 		super(text, nextTalks);

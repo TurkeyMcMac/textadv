@@ -1,6 +1,6 @@
 package textadv.base.talks;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 import textadv.base.outfits.Talker;
 
@@ -16,7 +16,7 @@ public final class EndTalk extends Talk {
 		super(text.isEmpty() ?
 			      END_MESSAGE : 
 			      text + "\n\n" + END_MESSAGE, 
-			  new LinkedHashMap<String, Talk>());
+			  new HashMap<String, Talk>());
 		this.endee = endee;
 	}
 	
