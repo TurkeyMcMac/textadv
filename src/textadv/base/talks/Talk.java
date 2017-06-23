@@ -27,7 +27,7 @@ public class Talk implements Serializable {
 	public Talk(List<?> structure) {
 		text = (String)structure.get(0);
 		@SuppressWarnings("unchecked")
-		Map<String, List<?>> nextTalks = (Map<String, List<?>>)structure.get(1);
+		Map<String, List<?>> nextTalks = (Map<String, List<?>>)structure.get(2);
 		for (Map.Entry<String, List<?>> p : nextTalks.entrySet()) {
 			resultNames.add(p.getKey());
 			results.add(new Talk(p.getValue()));

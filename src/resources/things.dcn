@@ -61,16 +61,20 @@
 		"icon" '>'
 		"talk" [
 			"Hi, I'm a fish thing."
+			[]
 			{
 				"What?" [
 					"Did you hear me?"
+					[]
 					{
 						"You bet!" [
 							"Ah, good."
+							[]
 							{}
 						]
 						"I think so..." [
 							"I hope so."
+							[]
 							{}
 						]
 						"Nope!" [
@@ -80,19 +84,23 @@
 							"    2. two\n"
 							"    3. three"
 							~
+							[]
 							{}
 						]
 					}
 				]
 				"OK..." [
 					"Finally, someone understands!"
+					[]
 					{
 						"Yes" [
 							"I agree."
+							[]
 							{}
 						]
 						"No" [
 							"I disagree."
+							[]
 							{}
 						]
 					}
